@@ -1,0 +1,9 @@
+/* Example CSS file */
+.logout-button {
+    background-color: transparent;
+    color: grey;
+    border: none;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  
