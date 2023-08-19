@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import Auth from './components/auth/Auth';
+import { useState, useEffect } from 'react';
+import Login from "./components/auth/login/Login";
+import Register from "./components/auth/register/Register";
 import Dashboard from './components/dashboard/Dashboard';
 import { Routes, Route } from 'react-router-dom';
-import Auth from './components/auth/Auth';
 
 function App() {
   const [sessionToken, setSessionToken] = useState('');
@@ -23,12 +25,13 @@ function App() {
   }, []);
 
   return (
- 
-      <Routes>
+    <Routes>
       <Route path="/" element={<Auth updateToken={updateToken} />} />
-      <Route path="/dashboard" element={<Dashboard token={sessionToken} />} />
-      </Routes>
 
+      <Route path="/login" element={<Login updateToken={updateToken} />} />
+      <Route path="/register" element={<Register updateToken={updateToken} />} />
+      <Route path="/dashboard" element={<Dashboard token={sessionToken} />} />
+    </Routes>
   );
 }
 

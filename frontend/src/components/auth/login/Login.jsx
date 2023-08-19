@@ -1,25 +1,29 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { baseURL } from '../../../environment';
 import './login.css'; // Import your CSS file for styling
 
 function Login({ updateToken }) {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate(); // Get the navigate function from react-router-dom
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    console.log('Submitting login form...');
+  
     const bodyObj = JSON.stringify({
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
+      email,
+      password,
     });
-
+  
     const url = `${baseURL}/auth/login`;
-
+  
     try {
+      console.log('Sending login request to:', url);
+  
       const res = await fetch(url, {
         method: 'POST',
         headers: new Headers({
@@ -27,29 +31,35 @@ function Login({ updateToken }) {
         }),
         body: bodyObj,
       });
-
+  
       const data = await res.json();
-      console.log('data:', data);
-      emailRef.current.value = '';
-      passwordRef.current.value = '';
-
-      if (data.user && data.token) {
-        updateToken(data.token, data.user.admin); // send admin status along with the token
-        console.log('DataToken:', data.user);
-
-        if (data.user.admin) {
-          navigate('/dashboard'); // Navigate to the admin dashboard if user is an admin
+      console.log('Response data:', data);
+  
+      if (res.status === 200) {
+        if (data.user && data.token) {
+          console.log('User logged in:', data.user);
+  
+          updateToken(data.token, data.user.admin);
+  
+          if (data.user.admin) {
+            console.log('User is an admin. Navigating to admin dashboard...');
+            navigate('/dashboard');
+          } 
+          
         } else {
-          navigate('/home'); // Navigate to the regular user dashboard route on successful login
+          console.log('Login failed. Alerting user...');
+          alert('Invalid email or password. Please try again.');
         }
       } else {
-        alert('Try a different email or password');
+        console.log('Login request failed with status:', res.status);
+        alert('Login request failed. Please try again later.');
       }
     } catch (error) {
-      console.error(error);
+      console.error('An error occurred:', error);
+      console.log('Login failed due to an error. Please check the console for details.');
+      alert('An error occurred during login. Please try again later.');
     }
   };
-
   return (
     <div className="login-container">
       <h2 className="login-heading">Login</h2>
@@ -60,7 +70,8 @@ function Login({ updateToken }) {
             type="email"
             id="email"
             className="login-input"
-            ref={emailRef} // Use ref here
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormGroup>
         <FormGroup>
@@ -69,7 +80,8 @@ function Login({ updateToken }) {
             type="password"
             id="password"
             className="login-input"
-            ref={passwordRef} // Use ref here
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </FormGroup>
         <Button color="primary" type="submit" className="login-button">

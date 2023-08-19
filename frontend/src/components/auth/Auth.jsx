@@ -10,20 +10,24 @@ function Auth(props) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const toggleForm = () => {
+    console.log('Toggling form...');
     setButton(button === 'To Register' ? 'To Login' : 'To Register');
   };
 
   const handleLogin = (token, admin) => {
+    console.log('User logged in with token:', token);
     setIsAdmin(admin);
     props.updateToken(token);
   };
 
   const handleLogout = () => {
+    console.log('Logging out user...');
     setIsAdmin(false);
     props.updateToken('');
   };
 
   const displayForm = () => {
+    console.log('Displaying form:', button);
     return button === 'To Login' ? <Register updateToken={props.updateToken} /> : <Login updateToken={handleLogin} />;
   };
 
