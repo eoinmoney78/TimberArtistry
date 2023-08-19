@@ -5,7 +5,7 @@ const validateSession = async (req, res, next) => {
     try {
         const token = req.headers.authorization;
 
-        if (!token || !token.startsWith('Bearer ')) {
+        if (!token || !token.startsWith('Bearer')) {
             return res.status(403).send({ auth: false, message: "Invalid token format or no token provided." });
         }
 

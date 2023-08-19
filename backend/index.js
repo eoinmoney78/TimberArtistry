@@ -1,17 +1,17 @@
 require('dotenv').config();
 
 const express = require('express');
-
 const app = express();
+const cors = require('cors');
+
 const cloudinary = require('./cloudinaryConfig');
 
 const multer = require('multer');
 
 const upload = multer({ dest: 'uploads/' });
-
-const cors = require('cors');
-const mongoose = require("mongoose");
-
+const PORT = process.env.PORT || 5001;
+const { connectToDatabase } = require('./middleware/db'); // Correct the path to middleware
+// const mongoose = require("mongoose");
 
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
@@ -19,24 +19,17 @@ const artworkRoute = require("./routes/artwork");
 const projectRoute = require("./routes/project");
 const blogRoute = require("./routes/blog");
 
-const PORT = process.env.PORT || 5001;
-
-const { connectToDatabase } = require('./middleware/db'); // Correct the path to middleware
-
-
-
 
 
 app.use(express.json());
-app.use('/static', express.static('public'));
 app.use(cors());
+app.use('/static', express.static('public'));
 
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/artwork", artworkRoute);
 app.use("/project", projectRoute);
 app.use("/blog", blogRoute);
-
 
 app.post('/image/upload', upload.single('image'), (req, res) => {
     // req.file is the 'image' file
@@ -61,7 +54,9 @@ app.post('/image/upload', upload.single('image'), (req, res) => {
 
 // Connection
 const server = async () => {
+    console.log('Connecting to the database...');
     await connectToDatabase(); // Use the correct function name
+    console.log('Database connection established.');
     app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
 };
 server();

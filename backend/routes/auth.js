@@ -8,8 +8,11 @@ const JWT = process.env.JWT;
 // REGISTER
 router.post("/register", async (req, res) => {
     try {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPass = await bcrypt.hash(req.body.password, salt);
+        const saltRounds = 10;
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hashedPass = bcrypt.hashSync(req.body.password, salt);
+
+
 
         const newUser = new User({
             username: req.body.username,
@@ -18,12 +21,11 @@ router.post("/register", async (req, res) => {
         });
 
         const user = await newUser.save();
+        console.log("User registered:", user.username);
         const { password, ...others } = user._doc;
 
-        // Generate JWT token for the user, including username
         const token = jwt.sign({ id: user._id, username: user.username }, JWT, { expiresIn: "1h" });
 
-        // Log success and token (for debugging)
         console.log(`User registered successfully: ${user.username}`);
         console.log(`Generated token: ${token}`);
 
@@ -42,16 +44,15 @@ router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username });
         if (!user) return res.status(400).json({ message: "Invalid credentials" });
-
+        console.log('Hashed Password from Database:', user.password);
+        console.log('Password from Login Request:', req.body.password);
         const validated = await bcrypt.compare(req.body.password, user.password);
         if (!validated) return res.status(400).json({ message: "Invalid credentials" });
 
         const { password, ...others } = user._doc;
 
-        // Generate JWT token for the user, including username
         const token = jwt.sign({ id: user._id, username: user.username }, JWT, { expiresIn: "24h" });
 
-        // Log success and token (for debugging)
         console.log(`User logged in successfully: ${user.username}`);
         console.log(`Generated token: ${token}`);
 
