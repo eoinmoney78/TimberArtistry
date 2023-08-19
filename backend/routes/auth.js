@@ -40,27 +40,32 @@ router.post("/register", async (req, res) => {
 });
 
 // LOGIN
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username });
-        if (!user) return res.status(400).json({ message: "Invalid credentials" });
-        console.log('Hashed Password from Database:', user.password);
-        console.log('Password from Login Request:', req.body.password);
-        const validated = await bcrypt.compare(req.body.password, user.password);
-        if (!validated) return res.status(400).json({ message: "Invalid credentials" });
+        const { email, password } = req.body;
+        const user = await User.findOne({ email: email });
 
-        const { password, ...others } = user._doc;
+        if (!user) throw new Error('Email or Password does not match');
+        const passwordCheck = await bcrypt.compare(password, user.password);
 
-        const token = jwt.sign({ id: user._id, username: user.username }, JWT, { expiresIn: "24h" });
+        if (!passwordCheck) throw new Error('Email or Password does not match');
 
-        console.log(`User logged in successfully: ${user.username}`);
-        console.log(`Generated token: ${token}`);
+        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: 60 * 60 * 24 });
 
-        res.status(200).json({ ...others, token });
+        email ?
+            res.status(200).json({
+                user,
+                token,
+                isAdmin: user.isAdmin
+            }) :
+            res.status(404).json({
+                message: "Something went wrong"
+            });
     } catch (err) {
-        console.error(`Error logging in: ${err}`);
-        res.status(500).json({ message: "Error logging in" });
+        console.error(err);
+        res.status(500).json({
+            Error: err.message
+        });
     }
 });
-
 module.exports = router;
