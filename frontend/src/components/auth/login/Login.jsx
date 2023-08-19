@@ -2,28 +2,28 @@ import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { baseURL } from '../../../environment';
-import './login.css'; // Import your CSS file for styling
+import './login.css';
 
 function Login({ updateToken }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Get the navigate function from react-router-dom
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     console.log('Submitting login form...');
-  
+
     const bodyObj = JSON.stringify({
       email,
       password,
     });
-  
+
     const url = `${baseURL}/auth/login`;
-  
+
     try {
       console.log('Sending login request to:', url);
-  
+
       const res = await fetch(url, {
         method: 'POST',
         headers: new Headers({
@@ -31,21 +31,20 @@ function Login({ updateToken }) {
         }),
         body: bodyObj,
       });
-  
+
+      console.log(res);
+
       const data = await res.json();
       console.log('Response data:', data);
-  
+
       if (res.status === 200) {
         if (data.user && data.token) {
           console.log('User logged in:', data.user);
-  
-          updateToken(data.token, data.user.admin);
-  
-          if (data.user.admin) {
-            console.log('User is an admin. Navigating to admin dashboard...');
-            navigate('/dashboard');
-          } 
-          
+
+          updateToken(data.token);
+
+          // Redirect the user to the dashboard
+          navigate('/dashboard');
         } else {
           console.log('Login failed. Alerting user...');
           alert('Invalid email or password. Please try again.');
@@ -60,6 +59,7 @@ function Login({ updateToken }) {
       alert('An error occurred during login. Please try again later.');
     }
   };
+
   return (
     <div className="login-container">
       <h2 className="login-heading">Login</h2>
