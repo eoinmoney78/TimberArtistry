@@ -56,3 +56,14 @@
 .register-button:hover {
   background-color: #c82333; /* Different background color */
 }
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}

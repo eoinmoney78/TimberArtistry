@@ -1,37 +1,48 @@
-import Auth from './components/auth/Auth';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+// import Auth from './components/auth/Auth';
 import Login from "./components/auth/login/Login";
 import Register from "./components/auth/register/Register";
-import Dashboard from './components/dashboard/Dashboard';
+import Header from './layout/Header';  
+import Footer from './layout/Footer';  
+import HomePage from './components/pages/HomePage';  
+import ServicesPage from './components/pages/ServicesPage';  
+
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
   const [sessionToken, setSessionToken] = useState('');
 
-  console.log("App.jsx:", sessionToken);
-
   const updateToken = (newToken) => {
-    console.log("updateToken called with newToken:", newToken);
     localStorage.setItem("token", newToken);
     setSessionToken(newToken);
   };
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    console.log("useEffect storedToken:", storedToken);
     if (storedToken) {
       setSessionToken(storedToken);
     }
   }, []);
 
-  return (
-    <Routes>
-      <Route path="/" element={<Auth updateToken={updateToken} />} />
+  const logout = () => {
+    localStorage.removeItem("token");
+    setSessionToken('');
+  };
 
-      <Route path="/login" element={<Login updateToken={updateToken} />} />
-      <Route path="/register" element={<Register updateToken={updateToken} />} />
-      <Route path="/dashboard" element={<Dashboard token={sessionToken} />} />
-    </Routes>
+  return (
+    <div>
+      <Header isAuthenticated={!!sessionToken} logout={logout} />
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />   
+        <Route path="/services" element={<ServicesPage />} />
+        
+        <Route path="/login" element={<Login updateToken={updateToken} />} />
+        <Route path="/register" element={<Register updateToken={updateToken} />} />
+      </Routes>
+
+      <Footer />
+    </div>
   );
 }
 

@@ -35,20 +35,18 @@ function Login({ updateToken }) {
       console.log(res);
 
       const data = await res.json();
-      console.log('Response data:', data);
+      console.log('Response data:', data);console.log('Full Response:', res, 'Response data:', data);
 
       if (res.status === 200) {
-        if (data.user && data.token) {
-          console.log('User logged in:', data.user);
-
+        if (data._id && data.token) {
+          console.log('User logged in:', data.username); // or just log the whole data object for the user
           updateToken(data.token);
-
-          // Redirect the user to the dashboard
           navigate('/dashboard');
-        } else {
+      } else {
           console.log('Login failed. Alerting user...');
           alert('Invalid email or password. Please try again.');
-        }
+      }
+      
       } else {
         console.log('Login request failed with status:', res.status);
         alert('Login request failed. Please try again later.');
