@@ -1,20 +1,76 @@
+// const mongoose = require('mongoose');
+
+// const uri = process.env.MONGO_URL;
+
+// const connectToDatabase = async () => {
+//     try {
+//         // Set useNewUrlParser and useUnifiedTopology options
+//         await mongoose.connect(uri, {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true
+//         });
+
+//         console.log('Database Connected Successfully');
+//     } catch (error) {
+//         console.error('Error connecting to the database:', error);
+//         throw error;
+//     }
+// };
+
+// // Expose the connectToDatabase function and the mongoose object
+// module.exports = { connectToDatabase, mongoose };
+
 const mongoose = require('mongoose');
 
-const uri = process.env.MONGO_URL;
+const MONGO_URI = process.env.MONGO_URL;
 
+/**
+ * Connects to the MongoDB instance using the given URI.
+ */
 const connectToDatabase = async () => {
     try {
-        // Set useNewUrlParser and useUnifiedTopology options
-        await mongoose.connect(uri, {
+        // Connection configurations
+        const options = {
             useNewUrlParser: true,
             useUnifiedTopology: true
-        });
+        };
+
+        await mongoose.connect(MONGO_URI, options);
 
         console.log('Database Connected Successfully');
+
+        // Add listeners to handle events
+        handleMongooseEvents();
+
     } catch (error) {
         console.error('Error connecting to the database:', error);
         throw error;
     }
+};
+
+/**
+ * Handles various mongoose connection events.
+ */
+const handleMongooseEvents = () => {
+    mongoose.connection.on('connected', () => {
+        console.log('Mongoose connected to the database.');
+    });
+
+    mongoose.connection.on('disconnected', () => {
+        console.log('Mongoose disconnected from the database.');
+    });
+
+    mongoose.connection.on('error', (error) => {
+        console.error('There was an error with the mongoose connection:', error);
+    });
+
+    // Ensure mongoose connection closes when the application stops
+    process.on('SIGINT', () => {
+        mongoose.connection.close(() => {
+            console.log('Mongoose connection closed due to application termination.');
+            process.exit(0);
+        });
+    });
 };
 
 // Expose the connectToDatabase function and the mongoose object
