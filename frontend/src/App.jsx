@@ -6,6 +6,7 @@ import Header from './layout/Header';
 import Footer from './layout/Footer';  
 import HomePage from './components/pages/HomePage';  
 import ServicesPage from './components/pages/ServicesPage';  
+import Gallery from './components/pages/Gallery';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -36,6 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />   
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/gallery" element={<Gallery />} />
         
         <Route path="/login" element={<Login updateToken={updateToken} />} />
         <Route path="/register" element={<Register updateToken={updateToken} />} />

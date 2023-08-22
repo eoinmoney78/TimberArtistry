@@ -1,0 +1,7 @@
+.homepage-container {
+    background-image: url('../../assets/bark.png'); /* Adjust the path if needed */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding: 40px 0; /* Additional padding if necessary */
+}

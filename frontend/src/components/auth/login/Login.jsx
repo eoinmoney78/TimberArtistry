@@ -41,7 +41,7 @@ function Login({ updateToken }) {
         if (data._id && data.token) {
           console.log('User logged in:', data.username); // or just log the whole data object for the user
           updateToken(data.token);
-          navigate('/dashboard');
+          navigate('/');
       } else {
           console.log('Login failed. Alerting user...');
           alert('Invalid email or password. Please try again.');

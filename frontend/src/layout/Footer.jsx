@@ -1,26 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Grid, Typography, IconButton } from '@mui/material';
+import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
 
 function Footer() {
   return (
-    <footer>
-      <div className="footer-links">
-        <ul>
-          <li><Link to="/about">About Us</Link></li>
-          <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-          <li><Link to="/terms">Terms & Conditions</Link></li>
-        </ul>
-      </div>
-      <div className="contact">
-        <p>Email: contact@business.com</p>
-        <p>Phone: (123) 456-7890</p>
-      </div>
-      <div className="social-media">
-        {/* You should replace the '#' below with the actual URLs of your social media pages when they're available. */}
-        <a href="#"><img src="/path-to-icons/facebook-icon.png" alt="Facebook" /></a>
-        <a href="#"><img src="/path-to-icons/twitter-icon.png" alt="Twitter" /></a>
-        <a href="#"><img src="/path-to-icons/instagram-icon.png" alt="Instagram" /></a>
-      </div>
+    <footer style={{ backgroundColor: '#3f51b5', color: 'white', padding: '16px 0' }}>
+      <Container>
+        <Grid container spacing={3} justifyContent="space-between">
+          
+          <Grid item xs={12} sm={4}>
+            <Typography variant="h6">Quick Links</Typography>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              <li><Link to="/about" style={{ textDecoration: 'none', color: 'white' }}>About Us</Link></li>
+              <li><Link to="/privacy-policy" style={{ textDecoration: 'none', color: 'white' }}>Testimonials</Link></li>
+              <li><Link to="/terms" style={{ textDecoration: 'none', color: 'white' }}>Handjobs or B.j's</Link></li>
+            </ul>
+          </Grid>
+          
+          <Grid item xs={12} sm={4}>
+            <Typography variant="h6">Contact</Typography>
+            <p>Email: Yugecocknballs@business.com</p>
+            <p>Phone: (123) 456-7890</p>
+          </Grid>
+          
+          <Grid item xs={12} sm={4}>
+            <Typography variant="h6">Follow Us</Typography>
+            <IconButton color="inherit" component="a" href="https://facebook.com" aria-label="Facebook">
+              <BsFacebook />
+            </IconButton>
+            <IconButton color="inherit" component="a" href="https://instagram.com" aria-label="Instagram">
+              <BsInstagram />
+            </IconButton>
+            <IconButton color="inherit" component="a" href="https://twitter.com" aria-label="Twitter">
+              <BsTwitter />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Container>
     </footer>
   );
 }

@@ -27,7 +27,9 @@ function Register({ updateToken }) {
 
       if (res.status === 201 && data.username && data.token) {
         updateToken(data.token);
-        navigate('/dashboard');
+        navigate('/');
+      
+      
       } else {
         alert(data.message || 'Registration failed. Please try again.');
       }
@@ -36,45 +38,8 @@ function Register({ updateToken }) {
       alert('An error occurred. Please try again.');
     }
   }
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-
-  //   console.log('Submitting registration form...');
-
-  //   const bodyObj = JSON.stringify({
-  //     username,
-  //     email,
-  //     password,
-  //   });
-
-  //   const url = `${baseURL}/auth/register`;
-
-  //   const headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-
-  //   const requestOptions = {
-  //     headers,
-  //     body: bodyObj,
-  //     method: 'POST',
-  //   };
-
-  //   try {
-  //     console.log('Sending registration request to:', url);
-  //     const res = await fetch(url, requestOptions);
-  //     const data = await res.json();
-  //     console.log('Response data:', data);
-  //     if (data.username && data.token) {
-  //       console.log('User registered:', data.username);
-  //       updateToken(data.token);
-  //       navigate('/login');
-  //     } else {
-  //       console.log('Registration failed. Alerting user...');
-  //       alert('Registration failed. Please try again.');
-  //     }
-  //   } catch (err) {
-  //     console.error('An error occurred:', err);
-  //   }
-  // }
+ 
+  
   return (
   <div className="register-container">
   <h2 className="register-heading">Register</h2>

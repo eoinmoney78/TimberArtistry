@@ -1,20 +1,18 @@
-
-
 import React, { useState } from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import Logout from '../auth/logout/Logout';
-import Register from './register/Register'; // Import the Signup component
-import Login from './login/Login'; // Import the Login component
+import Register from './register/Register';
+import Login from './login/Login';
 import './auth.css';
 
 function Auth(props) {
-  const [button, setButton] = useState('To Login'); // Change the initial state
+  const [showLogin, setShowLogin] = useState(true); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const toggleForm = () => {
     console.log('Toggling form...');
-    setButton(button === 'To Register' ? 'To Login' : 'To Register');
+    setShowLogin(!showLogin);
   };
 
   const handleLogin = (token, admin) => {
@@ -22,6 +20,7 @@ function Auth(props) {
     setIsLoggedIn(true);
     setIsAdmin(admin);
     props.updateToken(token);
+    localStorage.setItem('isAdmin', admin); 
   };
 
   const handleLogout = () => {
@@ -31,30 +30,26 @@ function Auth(props) {
     props.updateToken('');
   };
 
-  const displayContent = () => {
-    if (isLoggedIn) {
-      return (
-        <div className="auth-content">
-          <Logout onLogout={handleLogout} onAdminUpdate={setIsAdmin} />
-        </div>
-      );
-    } else {
-      return (
-        <div className="auth-content">
-          <Button color="primary" onClick={toggleForm} className="toggle-button">
-            {button}
-          </Button>
-          {button === 'To Login' ? <Register updateToken={props.updateToken} /> : <Login updateToken={handleLogin} />}
-        </div>
-      );
-    }
-  };
+  if (isLoggedIn) {
+    return (
+      <Container className="auth-container">
+                <Row>
+                    <Col>
+                        <Logout onLogout={handleLogout} onAdminUpdate={setIsAdmin} isAdmin={isAdmin} />
+                    </Col>
+                </Row>
+            </Container>
+    );
+  }
 
   return (
     <Container className="auth-container">
       <Row>
         <Col>
-          {isAdmin ? <Logout onLogout={handleLogout} onAdminUpdate={setIsAdmin} /> : displayContent()}
+          <Button color="primary" onClick={toggleForm} className="toggle-button">
+            {showLogin ? 'To Register' : 'To Login'}
+          </Button>
+          {showLogin ? <Login onLogin={handleLogin} /> : <Register updateToken={props.updateToken} />}
         </Col>
       </Row>
     </Container>
