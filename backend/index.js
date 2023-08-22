@@ -1,4 +1,5 @@
 require('dotenv').config();
+const crypto = require('crypto');
 
 const express = require('express');
 const app = express();
@@ -54,9 +55,16 @@ app.post('/image/upload', upload.single('image'), (req, res) => {
 
 // Connection
 const server = async () => {
+    // Check for JWT_SECRET
+    if (!process.env.JWT_SECRET) {
+        const generatedSecret = crypto.randomBytes(32).toString('hex');
+        console.warn(`JWT_SECRET is not set! For development, you can use the following secret: ${generatedSecret}. Please set this as an environment variable.`);
+    }
+
     console.log('Connecting to the database...');
     await connectToDatabase(); // Use the correct function name
     console.log('Database connection established.');
     app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
 };
+
 server();

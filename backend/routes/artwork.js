@@ -3,13 +3,14 @@ const { validateSession } = require('../middleware');
 const Artwork = require('../models/Artwork');
 
 const validateAdmin = (req, res, next) => {
-    if (req.user && req.user.role === 'admin') {
+    if (req.user && req.user.isAdmin) { // Change this line
         next();
     } else {
         console.error('Unauthorized access attempt by non-admin');
         res.status(403).json({ message: 'Forbidden: Admins only' });
     }
 };
+
 
 router.post('/', validateSession, validateAdmin, async (req, res) => {
     try {

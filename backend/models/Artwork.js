@@ -20,7 +20,7 @@ const artworkSchema = new mongoose.Schema(
         },
         category: {
             type: String,
-            enum: ['Painting', 'Sculpture', 'Photography', 'Other'],
+            enum: ['Painting', 'Sculpture', 'Photography', 'Other', 'Wood piece'],
             required: true,
         },
         price: {

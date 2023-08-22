@@ -1,28 +1,8 @@
-// const mongoose = require('mongoose');
 
-// const uri = process.env.MONGO_URL;
-
-// const connectToDatabase = async () => {
-//     try {
-//         // Set useNewUrlParser and useUnifiedTopology options
-//         await mongoose.connect(uri, {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true
-//         });
-
-//         console.log('Database Connected Successfully');
-//     } catch (error) {
-//         console.error('Error connecting to the database:', error);
-//         throw error;
-//     }
-// };
-
-// // Expose the connectToDatabase function and the mongoose object
-// module.exports = { connectToDatabase, mongoose };
 
 const mongoose = require('mongoose');
 
-const MONGO_URI = process.env.MONGO_URL;
+const MONGO_URI = process.env.MONGO_URI;
 
 /**
  * Connects to the MongoDB instance using the given URI.
@@ -66,11 +46,11 @@ const handleMongooseEvents = () => {
 
     // Ensure mongoose connection closes when the application stops
     process.on('SIGINT', () => {
-        mongoose.connection.close(() => {
-            console.log('Mongoose connection closed due to application termination.');
-            process.exit(0);
-        });
+        mongoose.connection.close();
+        console.log('Mongoose connection closed due to application termination.');
+        process.exit(0);
     });
+
 };
 
 // Expose the connectToDatabase function and the mongoose object
