@@ -1,7 +1,22 @@
 .homepage-container {
-    background-image: url('../../assets/bark.png'); /* Adjust the path if needed */
+    position: relative;
+    height: 80vh;
+    /* ... any other styles for the .homepage-container ... */
+}
+
+.homepage-container::before {
+    content: ""; /* This is essential for the pseudo-element to display */
+    background-image: url('../../assets/bark.png'); 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    padding: 40px 0; /* Additional padding if necessary */
+
+    position: absolute; /* Set to absolute positioning */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Stretch across the entire .homepage-container */
+
+    z-index: -1; /* Ensure it's behind the container's content */
+    opacity: 0.85;
 }

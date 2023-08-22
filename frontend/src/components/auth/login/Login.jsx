@@ -39,14 +39,21 @@ function Login({ updateToken }) {
 
       if (res.status === 200) {
         if (data._id && data.token) {
-          console.log('User logged in:', data.username); // or just log the whole data object for the user
-          updateToken(data.token);
-          navigate('/');
-      } else {
-          console.log('Login failed. Alerting user...');
-          alert('Invalid email or password. Please try again.');
-      }
-      
+            console.log('User logged in:', data.username);
+            updateToken(data.token);
+            
+            // Check if data contains the isAdmin flag
+            if (data.isAdmin !== undefined) {
+                localStorage.setItem('isAdmin', JSON.stringify(data.isAdmin));
+            }
+    
+            navigate('/');
+        } else {
+            console.log('Login failed. Alerting user...');
+            alert('Invalid email or password. Please try again.');
+        }
+    
+    
       } else {
         console.log('Login request failed with status:', res.status);
         alert('Login request failed. Please try again later.');

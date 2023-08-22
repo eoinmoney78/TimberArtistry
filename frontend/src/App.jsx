@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import Auth from './components/auth/Auth';
 import Login from "./components/auth/login/Login";
 import Register from "./components/auth/register/Register";
 import Header from './layout/Header';  
@@ -8,10 +7,11 @@ import HomePage from './components/pages/HomePage';
 import ServicesPage from './components/pages/ServicesPage';  
 import Gallery from './components/pages/Gallery';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';  // <-- add useLocation import here
 
 function App() {
   const [sessionToken, setSessionToken] = useState('');
+  const location = useLocation();  // <-- use the hook here
 
   const updateToken = (newToken) => {
     localStorage.setItem("token", newToken);
@@ -36,14 +36,13 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />   
+        <Route path="/register" element={<Register updateToken={updateToken} />} />
+        <Route path="/login" element={<Login updateToken={updateToken} />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/gallery" element={<Gallery />} />
-        
-        <Route path="/login" element={<Login updateToken={updateToken} />} />
-        <Route path="/register" element={<Register updateToken={updateToken} />} />
       </Routes>
 
-      <Footer />
+      {location.pathname !== '/gallery' && <Footer />}
     </div>
   );
 }

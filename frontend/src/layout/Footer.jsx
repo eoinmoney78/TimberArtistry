@@ -5,27 +5,27 @@ import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
 
 function Footer() {
   return (
-    <footer style={{ backgroundColor: '#3f51b5', color: 'white', padding: '16px 0' }}>
+    <footer style={{ backgroundColor: '#3f51b5', color: 'white', padding: '8px 0' }}>
       <Container>
-        <Grid container spacing={3} justifyContent="space-between">
+        <Grid container spacing={2} justifyContent="space-between">
           
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6">Quick Links</Typography>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              <li><Link to="/about" style={{ textDecoration: 'none', color: 'white' }}>About Us</Link></li>
-              <li><Link to="/privacy-policy" style={{ textDecoration: 'none', color: 'white' }}>Testimonials</Link></li>
-              <li><Link to="/terms" style={{ textDecoration: 'none', color: 'white' }}>Handjobs or B.j's</Link></li>
+            <Typography variant="subtitle1">Quick Links</Typography>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '8px 0' }}>
+              <li><Link to="/about" style={{ textDecoration: 'none', color: 'white', fontSize: '0.9rem' }}>About Us</Link></li>
+              <li><Link to="/privacy-policy" style={{ textDecoration: 'none', color: 'white', fontSize: '0.9rem' }}>Testimonials</Link></li>
+              <li><Link to="/terms" style={{ textDecoration: 'none', color: 'white', fontSize: '0.9rem' }}>Yes yes yes</Link></li>
             </ul>
           </Grid>
           
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6">Contact</Typography>
-            <p>Email: Yugecocknballs@business.com</p>
-            <p>Phone: (123) 456-7890</p>
+            <Typography variant="subtitle1">Contact</Typography>
+            <p style={{ fontSize: '0.9rem', margin: '4px 0' }}>Email: Maynes@business.com</p>
+            <p style={{ fontSize: '0.9rem', margin: '4px 0' }}>Phone: (123) 456-7890</p>
           </Grid>
           
           <Grid item xs={12} sm={4}>
-            <Typography variant="h6">Follow Us</Typography>
+            <Typography variant="subtitle1">Follow Us</Typography>
             <IconButton color="inherit" component="a" href="https://facebook.com" aria-label="Facebook">
               <BsFacebook />
             </IconButton>

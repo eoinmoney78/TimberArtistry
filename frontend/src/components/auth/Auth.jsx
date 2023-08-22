@@ -6,6 +6,7 @@ import Login from './login/Login';
 import './auth.css';
 
 function Auth(props) {
+  console.log('Auth component rendered!');
   const [showLogin, setShowLogin] = useState(true); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -16,12 +17,14 @@ function Auth(props) {
   };
 
   const handleLogin = (token, admin) => {
+    console.log('admin value on login:', admin); 
     console.log('User logged in with token:', token);
     setIsLoggedIn(true);
     setIsAdmin(admin);
     props.updateToken(token);
-    localStorage.setItem('isAdmin', admin); 
-  };
+    localStorage.setItem('isAdmin', JSON.stringify(admin));
+};
+
 
   const handleLogout = () => {
     console.log('Logging out user...');

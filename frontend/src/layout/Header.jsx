@@ -13,13 +13,14 @@ function Header({ isAuthenticated, logout }) {
   return (
     <>
       <CssBaseline />
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{backgroundColor: '#cd7f32'}}>
+
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="home" component={StyledRouterLink} to="/">
             {/* <HomeIcon /> */}
           </IconButton>
 
-          <img src={logo} alt="Timber Artistry Logo" style={{ height: '50px', marginRight: 'auto' }} />
+          <img src={logo} alt="Timber Artistry Logo" style={{ height: '50px', marginRight: 'auto', border: '2px solid black' }} />
 
           <Button color="inherit" component={StyledRouterLink} to="/">Home</Button>
           <Button color="inherit" component={StyledRouterLink} to="/services">Services</Button>

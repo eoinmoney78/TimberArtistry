@@ -1,0 +1,48 @@
+.gallery-container{
+height: 80vh;
+background-color:rgb(219, 151, 68);
+}
+
+.slide-in-form {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    overflow-x: hidden;
+    transition: 0.5s;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 50px 30px;
+    margin-top: 60px;
+}
+
+.slide-in-form.open {
+    width: 400px; /* or however wide you want the form to be */
+}
+
+.slide-in-form {
+    margin-top: 60px; /* Adjust this value based on your needs */
+}
+.artwork-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 15px 0;
+    background-color: #fff;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.artwork-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.artwork-card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.artwork-card-title {
+    margin-top: 15px;
+}
