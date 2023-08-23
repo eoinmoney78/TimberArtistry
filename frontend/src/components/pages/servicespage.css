@@ -1,0 +1,23 @@
+.services-page {
+    position: relative;
+   
+  
+    /* ... any other styles for the .homepage-container ... */
+}
+
+.services-page::before {
+    content: ""; /* This is essential for the pseudo-element to display */
+    background-image: url('../../assets/cabinet-BG.png'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    position: absolute; /* Set to absolute positioning */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Stretch across the entire .homepage-container */
+
+    z-index: -1; /* Ensure it's behind the container's content */
+    opacity: 9;
+}
