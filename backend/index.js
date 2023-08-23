@@ -12,12 +12,13 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const PORT = process.env.PORT || 5001;
 const { connectToDatabase } = require('./middleware/db'); // Correct the path to middleware
+
 // const mongoose = require("mongoose");
 
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const artworkRoute = require("./routes/artwork");
-const projectRoute = require("./routes/project");
+
 const blogRoute = require("./routes/blog");
 
 
@@ -29,8 +30,14 @@ app.use('/static', express.static('public'));
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/artwork", artworkRoute);
-app.use("/project", projectRoute);
+
 app.use("/blog", blogRoute);
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
 
 app.post('/image/upload', upload.single('image'), (req, res) => {
     // req.file is the 'image' file
@@ -58,6 +65,7 @@ const server = async () => {
     // Check for JWT_SECRET
     if (!process.env.JWT_SECRET) {
         const generatedSecret = crypto.randomBytes(32).toString('hex');
+        console.log('Crypto is working. Generated secret:', generatedSecret);
         console.warn(`JWT_SECRET is not set! For development, you can use the following secret: ${generatedSecret}. Please set this as an environment variable.`);
     }
 

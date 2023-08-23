@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { validateSession } = require('../middleware'); // Adjust the path to the validate-session module
 const Blog = require('../models/Blog');
-const jwt = require('jsonwebtoken');
+
 
 // CREATE a new blog post (requires authentication)
 router.post('/', validateSession, async (req, res) => {
