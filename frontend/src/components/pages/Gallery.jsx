@@ -14,10 +14,12 @@ import {
 
 function Gallery() {
     const [isFormVisible, setIsFormVisible] = useState(false);
-    
+    const [editArtworkId, setEditArtworkId] = useState(null);
+
     const [userRole, setUserRole] = useState(localStorage.getItem('isAdmin') === 'true' ? 'admin' : 'user');
 
     useEffect(() => {
+      
         // This will set the initial value of userRole based on what's in localStorage when the component first mounts.
         const handleStorageChange = () => {
             setUserRole(localStorage.getItem('isAdmin') === 'true' ? 'admin' : 'user');
@@ -40,8 +42,11 @@ function Gallery() {
         category: '',
         price: '',
     });
-
     useEffect(() => {
+        console.log("Component Mounted.");
+        console.log("Initial Artworks:", artworks);
+        console.log("Is Admin?", userRole === 'admin');
+        console.log("Fetching artworks from:", `${baseURL}/artwork`);
         fetch(`${baseURL}/artwork`)
             .then(response => {
                 if (!response.ok) {
@@ -49,9 +54,14 @@ function Gallery() {
                 }
                 return response.json();
             })
-            .then(data => setArtworks(data))
+            .then(data => {
+                console.log("Fetched artworks:", data);
+                setArtworks(data);
+            })
             .catch(error => console.error('Error fetching artworks:', error));
     }, []);
+
+
     
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -61,6 +71,8 @@ function Gallery() {
         }));
     };
 
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
@@ -68,9 +80,21 @@ function Gallery() {
             console.error('No token found in localStorage. Redirecting to login...');
             return;
         }
-
-        fetch(`${baseURL}/artwork`, {
-            method: 'POST',
+        
+        const url = editArtworkId ? `${baseURL}/artwork/${editArtworkId}` : `${baseURL}/artwork`;
+        const method = editArtworkId ? 'PUT' : 'POST';
+    
+        // Check and delete _id for POST method
+        if (method === 'POST' && newArtwork._id) {
+            delete newArtwork._id;
+        }
+    
+        // Log the values of newArtwork and method
+        console.log("Submitting with artwork data:", newArtwork);
+        console.log("Using HTTP method:", method);
+    
+        fetch(url, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -84,13 +108,68 @@ function Gallery() {
             return response.json();
         })
         .then(data => {
-            setArtworks(prevArtworks => [...prevArtworks, data]);
-        })
-        .catch(error => console.error('Error creating artwork:', error));
-    };
+            if(editArtworkId) {
+                setArtworks(prevArtworks => prevArtworks.map(artwork => artwork._id === editArtworkId ? data : artwork));
+                setEditArtworkId(null); // Reset editArtworkId
+            } else {
+                setArtworks(prevArtworks => [...prevArtworks, data]);
+            }
+                 // Clearing the form fields
+        setNewArtwork({
+            title: '',
+            artist: '',
+            description: '',
+            imageUrl: '',
+            category: '',
+            price: '',
+        });
 
+        // Optionally hide the form after editing
+        setIsFormVisible(false);
+    })
+        
+        .catch(error => console.error('Error processing artwork:', error));
+    };
+    
+    
+
+    const handleEdit = (artwork) => {
+        setEditArtworkId(artwork._id);
+        setNewArtwork(artwork);
+        setIsFormVisible(true);
+    };
+    
+    const handleDelete = (_id) => {
+        console.log("Deleting artwork with ID:", _id);
+        const token = localStorage.getItem("token");
+        if (!token) {
+            console.error('No token found in localStorage. Redirecting to login...');
+            return;
+        }
+        
+        fetch(`${baseURL}/artwork/${_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            setArtworks(artworks.filter(artwork => artwork._id !== _id));
+        })
+        .then(() => {
+            console.log("Deleted artwork with ID:", _id);
+        })
+        .catch(error => console.error('Error deleting artwork:', error));
+    };
+    
+    
+    
     return (
         <Container className="gallery-container">
+             {console.log("Rendering Gallery")}
             <Typography variant="h4" gutterBottom>Gallery</Typography>
 
             {userRole === 'admin' && (
@@ -123,7 +202,7 @@ function Gallery() {
         label="Artist"
         value={newArtwork.artist}
         onChange={handleInputChange}
-        sx={{ fontSize: '1.1rem', padding: '8px 0' }}
+        sx={{ fontSize: '1.1rem', padding: '8px 0'}}
     />
 
     <TextField
@@ -183,21 +262,29 @@ function Gallery() {
                     )}
                 </>
             )}
- <div className="artworks-display">
+<div className="artworks-display">
+    {console.log("Rendering artworks. Count:", artworks.length)}
     {artworks.map(artwork => (
-        <div key={artwork.id} className="artwork-card">
+        <div key={artwork._id} className="artwork-card">
             <img src={artwork.imageUrl} alt={artwork.title} />
             <Typography className="artwork-card-title" variant="h6">{artwork.title}</Typography>
             <Typography variant="subtitle1">By: {artwork.artist}</Typography>
             <Typography variant="body2">{artwork.description}</Typography>
             <Typography variant="body1">Category: {artwork.category}</Typography>
             <Typography variant="body1">Price: ${artwork.price}</Typography>
+            {userRole === 'admin' && (
+                <div className="artwork-card-actions">
+                    <Button onClick={() => handleEdit(artwork)}>Edit</Button>
+                    <Button onClick={() => handleDelete(artwork._id)}>Delete</Button>
+                </div>
+            )}
         </div>
     ))}
 </div>
 
 
-            {/* Display the artworks (or any other gallery logic) goes here */}
+
+           
         </Container>
     );
 }

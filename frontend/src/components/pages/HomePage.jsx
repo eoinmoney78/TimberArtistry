@@ -7,7 +7,7 @@ function HomePage() {
     <Container className="homepage-container">
       <Box mt={8} mb={4}>
         <Typography variant="h2" align="center" style={{ color: 'white' }} gutterBottom>
-          Timber Artistry
+          Wooden Reverie
         </Typography>
         <Typography variant="h6" align="center" style={{ color: 'white' }} paragraph>
           Transforming ordinary into extraordinary with cabinet re-facing and unique wooden art.

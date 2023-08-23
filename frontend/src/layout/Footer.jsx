@@ -5,8 +5,9 @@ import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
 
 function Footer() {
   return (
-    <footer style={{ backgroundColor: '#3f51b5', color: 'white', padding: '8px 0' }}>
-      <Container>
+    <footer   style={{ backgroundColor: '#cd7f32', color: 'white', padding: '8px 0' }}>
+      <Container maxWidth="1200px"  >
+
         <Grid container spacing={2} justifyContent="space-between">
           
           <Grid item xs={12} sm={4}>

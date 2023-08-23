@@ -23,7 +23,7 @@ background-color:rgb(219, 151, 68);
 .slide-in-form {
     margin-top: 60px; /* Adjust this value based on your needs */
 }
-.artwork-card {
+/* .artwork-card {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -31,18 +31,53 @@ background-color:rgb(219, 151, 68);
     margin: 15px 0;
     background-color: #fff;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+} */
+
+
+.artwork-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(97, 73, 73, 0.1);
+    max-width: 300px; /* adjust width as needed */
+    text-align: center;
 }
 
 .artwork-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #b68f8f;
+    transition: ease-in 1s;
+
 }
 
-.artwork-card img {
+/* .artwork-card img {
     max-width: 100%;
     border-radius: 5px;
-}
+} */
 
 .artwork-card-title {
     margin-top: 15px;
+}
+
+
+
+.artwork-card img {
+    width: 100%;
+    max-width: 400px; /* adjust width as needed */
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.artwork-card-actions {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }

@@ -8,13 +8,14 @@ import {GiDeadWood} from 'react-icons/gi';
 function ServicesPage() {
   return (
     <Container>
-     <Box height="50vh" display="flex" flexDirection="column" justifyContent="center">
-        <Typography variant="h2" align="center" gutterBottom>
-          Our Services
-        </Typography>
-      </Box>
+<Box height="35vh" display="flex" flexDirection="column" justifyContent="center" paddingTop="100px">
+    <Typography variant="h2" align="center" gutterBottom>
+      Our Services
+    </Typography>
+</Box>
 
-      <Grid container spacing={4}>
+
+      <Grid container spacing={2}>
         
         <Grid item xs={12} md={4}>
           <Card variant="outlined" elevation={4} sx={{ "&:hover": { transform: "scale(1.05)", transition: "0.3s" } }}>
