@@ -5,6 +5,7 @@ import {BiCabinet} from  'react-icons/bi';
 import {GiPaintBrush} from 'react-icons/gi';
 import {GiDeadWood} from 'react-icons/gi';
 import './servicespage.css';
+import { Link } from 'react-router-dom'; 
 
 function ServicesPage() {
   return (
@@ -28,7 +29,11 @@ function ServicesPage() {
             <Typography align="center" paragraph style={{ fontSize: '18px' }}> {/* Increased font size */}
               Give your cabinets a fresh, modern look without the hassle of a full remodel.
             </Typography>
-            <Button variant="contained" color="primary" fullWidth>Learn More</Button>
+            <Link to="/projects" style={{ textDecoration: 'none' }}> {/* Wrap the button with the Link component */}
+            <Button variant="contained" color="primary" fullWidth>
+              Learn More
+            </Button>
+          </Link>
           </CardContent>
         </CardActionArea>
       </Card>
@@ -45,7 +50,11 @@ function ServicesPage() {
         <Typography align="center" paragraph style={{ fontSize: '18px' }}> {/* Increased font size */}
           Discover unique art pieces, handcrafted from wood, perfect for any space.
         </Typography>
-        <Button variant="contained" color="primary" fullWidth>View Collection</Button>
+        <Link to="/gallery" style={{ textDecoration: 'none' }}> {/* Adding Link here */}
+                <Button variant="contained" color="primary" fullWidth>
+                  View Collection
+                </Button>
+              </Link>
       </CardContent>
     </CardActionArea>
   </Card>
@@ -63,7 +72,9 @@ function ServicesPage() {
         <Typography align="center" paragraph style={{ fontSize: '18px' }}> {/* Increased font size */}
           From furniture to decor, we can craft custom woodwork tailored to your needs.
         </Typography>
+        <Link to="/contact" style={{ textDecoration: 'none' }}> 
         <Button variant="contained" color="primary" fullWidth>Get a Quote</Button>
+        </Link>
       </CardContent>
     </CardActionArea>
   </Card>

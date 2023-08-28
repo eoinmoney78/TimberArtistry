@@ -6,12 +6,14 @@ import Footer from './layout/Footer';
 import HomePage from './components/pages/HomePage';  
 import ServicesPage from './components/pages/ServicesPage';  
 import Gallery from './components/pages/Gallery';
+import Projects from './components/pages/Projects';  // <-- import the Projects component
+import Contact from './components/pages/Contact';  // <-- import the Contact component
 
-import { Routes, Route, useLocation } from 'react-router-dom';  // <-- add useLocation import here
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 function App() {
   const [sessionToken, setSessionToken] = useState('');
-  const location = useLocation();  // <-- use the hook here
+  const location = useLocation();
 
   const updateToken = (newToken) => {
     localStorage.setItem("token", newToken);
@@ -40,6 +42,8 @@ function App() {
         <Route path="/login" element={<Login updateToken={updateToken} />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/projects" element={<Projects />} /> 
+        <Route path="/contact" element={<Contact />} />  {/* <-- add the Projects route here */}
       </Routes>
 
       {location.pathname !== '/gallery' && <Footer />}
