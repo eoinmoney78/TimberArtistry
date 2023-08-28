@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const blogSchema = new mongoose.Schema(
+const projectSchema = new mongoose.Schema(
     {
         title: {
             type: String,
@@ -19,9 +19,10 @@ const blogSchema = new mongoose.Schema(
             type: Date,
             default: Date.now,
         },
+        // Add any additional fields that pertain to a project here if needed
     }
 );
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Project = mongoose.model('Project', projectSchema);
 
-module.exports = Blog;
+module.exports = Project;

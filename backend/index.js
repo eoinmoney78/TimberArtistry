@@ -19,7 +19,7 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const artworkRoute = require("./routes/artwork");
 
-const blogRoute = require("./routes/blog");
+const projectRoute = require("./routes/project");
 
 
 
@@ -31,7 +31,7 @@ app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/artwork", artworkRoute);
 
-app.use("/blog", blogRoute);
+app.use("/project", projectRoute);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
