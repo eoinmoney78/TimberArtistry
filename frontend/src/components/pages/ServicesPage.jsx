@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 function ServicesPage() {
   return (
     <Container className="services-page">
-      <Box height="40vh" display="flex" flexDirection="column" justifyContent="center" paddingTop="100px">
-      <Typography variant="h2" align="center" gutterBottom>
+      <Box height="50vh" display="flex" flexDirection="column" justifyContent="center" paddingTop="100px">
+      <Typography variant="h2" align="center" color="white"gutterBottom>
       Our Services
        </Typography>
      </Box>

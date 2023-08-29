@@ -14,8 +14,8 @@ function Footer() {
             <Typography variant="subtitle1">Quick Links</Typography>
             <ul style={{ listStyle: 'none', padding: 0, margin: '8px 0' }}>
               <li><Link to="/about" style={{ textDecoration: 'none', color: 'white', fontSize: '0.9rem' }}>About Us</Link></li>
-              <li><Link to="/privacy-policy" style={{ textDecoration: 'none', color: 'white', fontSize: '0.9rem' }}>Testimonials</Link></li>
-              <li><Link to="/terms" style={{ textDecoration: 'none', color: 'white', fontSize: '0.9rem' }}>Yes yes yes</Link></li>
+              <li><Link to="/testimonials" style={{ textDecoration: 'none', color: 'white', fontSize: '0.9rem' }}>Testimonials</Link></li>
+              <li><Link to="/" style={{ textDecoration: 'none', color: 'white', fontSize: '0.9rem' }}>Yes yes yes</Link></li>
             </ul>
           </Grid>
           

@@ -8,6 +8,8 @@ import ServicesPage from './components/pages/ServicesPage';
 import Gallery from './components/pages/Gallery';
 import Projects from './components/pages/Projects';  // <-- import the Projects component
 import Contact from './components/pages/Contact';  // <-- import the Contact component
+import About from './components/pages/About'; 
+import Testimonials from './components/pages/Testimonials';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
 
@@ -43,7 +45,9 @@ function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/projects" element={<Projects />} /> 
-        <Route path="/contact" element={<Contact />} />  {/* <-- add the Projects route here */}
+        <Route path="/contact" element={<Contact />} />  
+        <Route path="/about" element={<About />} />
+        <Route path="/testimonials" element={<Testimonials />} />
       </Routes>
 
       {location.pathname !== '/gallery' && <Footer />}

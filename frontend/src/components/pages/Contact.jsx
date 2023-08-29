@@ -27,11 +27,14 @@ function Contact() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Contact Us</h2>
-      <p>We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '70vh', padding: '70px' }}>
+      <div style={{ flex: 1 }}>
+        <h2>Contact Us</h2>
+        <p>We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
+        {/* Your form remains unchanged here */}
+      </div>
 
-      <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
+      <form onSubmit={handleSubmit} style={{ marginTop: '2px' }}>
         <div style={{ marginBottom: '15px' }}>
           <label>
             Name:

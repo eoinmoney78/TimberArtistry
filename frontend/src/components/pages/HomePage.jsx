@@ -1,14 +1,39 @@
 import React from 'react';
 import { Typography, Container, Button, Box, Grid, Card,  CardContent } from '@mui/material';
 import './homepage.css';
+import { Link } from 'react-router-dom'; 
 
 function HomePage() {
   return (
     <Container className="homepage-container">
       <Box mt={8} mb={4}>
-        <Typography variant="h2" align="center" style={{ color: 'white' }} gutterBottom>
-          Wooden Reverie
-        </Typography>
+      <div style={{
+  display: 'flex',
+  height: '20vh',
+  alignItems: 'center',
+  justifyContent: 'center'
+}}>
+  <div style={{
+    display: 'inline-block',  // makes the div wrap snugly around the text
+    boxShadow: '5px 5px 15px rgba(50, 20, 10, 0.9)',
+    borderRadius: '5px',
+    backgroundColor: 'transparent', // a light gray background for visibility
+    transform: "ease in 1s"
+  }}>
+    <Typography 
+      variant="h2" 
+      align="center" 
+      style={{ 
+        color: 'black', 
+        padding: '10px'
+      }} 
+      gutterBottom
+    >
+      Wooden Reverie
+    </Typography>
+  </div>
+</div>
+
         <Typography variant="h6" align="center" style={{ color: 'white' }} paragraph>
           Transforming ordinary into extraordinary with cabinet re-facing and unique wooden art.
         </Typography>
@@ -31,9 +56,12 @@ function HomePage() {
                 Give your cabinets a fresh, modern look without the hassle of a full remodel. 
               </Typography>
               <Box mt={2} display="flex" justifyContent="center">
-                <Button variant="contained" color="primary">
-                  Learn More
-                </Button>
+                
+              <Link to="/projects" style={{ textDecoration: 'none' }}> 
+            <Button variant="contained" color="primary" fullWidth>
+              Learn More
+            </Button>
+          </Link>
               </Box>
             </CardContent>
           </Card>
@@ -55,9 +83,11 @@ function HomePage() {
                 Discover unique art pieces, handcrafted from wood, perfect for any space.
               </Typography>
               <Box mt={2} display="flex" justifyContent="center">
+              <Link to="/gallery" style={{ textDecoration: 'none' }}> 
                 <Button variant="contained" color="primary">
                   Shop Now
                 </Button>
+                </Link>
               </Box>
             </CardContent>
           </Card>
