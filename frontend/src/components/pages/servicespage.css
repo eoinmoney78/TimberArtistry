@@ -1,23 +1,20 @@
 .services-page {
     position: relative;
-   
-  
-    /* ... any other styles for the .homepage-container ... */
 }
 
 .services-page::before {
-    content: ""; /* This is essential for the pseudo-element to display */
+    content: ""; 
     background-image: url('../../assets/textured_background.png'); 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 
-    position: absolute; /* Set to absolute positioning */
+    position: absolute; 
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0; /* Stretch across the entire .homepage-container */
+    bottom: 0;
 
-    z-index: -1; /* Ensure it's behind the container's content */
-    opacity: 9;
+    z-index: -1; 
+    opacity: 1; /* Corrected this to a valid value between 0 and 1 */
 }

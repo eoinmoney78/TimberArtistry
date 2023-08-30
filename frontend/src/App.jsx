@@ -50,7 +50,7 @@ function App() {
         <Route path="/testimonials" element={<Testimonials />} />
       </Routes>
 
-      {location.pathname !== '/gallery' && <Footer />}
+       {location.pathname !== '/gallery' && <Footer />}
     </div>
   );
 }

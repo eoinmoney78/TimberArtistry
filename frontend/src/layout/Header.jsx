@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import logo from '../assets/logo.png'; 
+import logo from '../assets/jer-logo-3.png'; 
 import { AppBar, Toolbar, Button, IconButton, styled, CssBaseline } from '@mui/material';
 
 const StyledRouterLink = styled(RouterLink)({

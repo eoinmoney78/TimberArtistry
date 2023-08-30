@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { baseURL } from '../../environment/index';
+import { CloudinaryContext, Image, Transformation } from 'cloudinary-react';
+
 import './gallery.css';
 import {
     TextField,
@@ -15,7 +17,27 @@ import {
 function Gallery() {
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [editArtworkId, setEditArtworkId] = useState(null);
+    const [imageFile, setImageFile] = useState(null); 
 
+    const handleImageChange = (e) => {
+        setImageFile(e.target.files[0]);
+    };
+    const handleImageUpload = async () => {
+        const formData = new FormData();
+        formData.append('file', imageFile);
+        formData.append('upload_preset', 'ml_default');
+
+        const response = await fetch('https://api.cloudinary.com/v1_1/dns9ltiu8/image/upload', {
+            method: 'POST',
+            body: formData,
+          });
+
+        const data = await response.json();
+        setNewArtwork(prevState => ({
+            ...prevState,
+            imageUrl: data.secure_url,
+        }));
+    };
     const [userRole, setUserRole] = useState(localStorage.getItem('isAdmin') === 'true' ? 'admin' : 'user');
 
     useEffect(() => {
@@ -42,6 +64,7 @@ function Gallery() {
         category: '',
         price: '',
     });
+
     useEffect(() => {
         console.log("Component Mounted.");
         console.log("Initial Artworks:", artworks);
@@ -185,6 +208,8 @@ function Gallery() {
                             </Button>
 
                             <form onSubmit={handleSubmit}>
+                                                      <input type="file" onChange={handleImageChange} />
+                            <Button onClick={handleImageUpload}>Upload Image</Button>
     <TextField
         fullWidth
         margin="normal"
@@ -262,26 +287,31 @@ function Gallery() {
                     )}
                 </>
             )}
-<div className="artworks-display">
-    {console.log("Rendering artworks. Count:", artworks.length)}
-    {artworks.map(artwork => (
-        <div key={artwork._id} className="artwork-card">
-            <img src={artwork.imageUrl} alt={artwork.title} />
-            <Typography className="artwork-card-title" variant="h6">{artwork.title}</Typography>
-            <Typography variant="subtitle1">By: {artwork.artist}</Typography>
-            <Typography variant="body2">{artwork.description}</Typography>
-            <Typography variant="body1">Category: {artwork.category}</Typography>
-            <Typography variant="body1">Price: ${artwork.price}</Typography>
-            {userRole === 'admin' && (
-                <div className="artwork-card-actions">
-                    <Button onClick={() => handleEdit(artwork)}>Edit</Button>
-                    <Button onClick={() => handleDelete(artwork._id)}>Delete</Button>
-                </div>
-            )}
-        </div>
-    ))}
-</div>
+      <div className="artworks-display">
+            {console.log("Rendering artworks. Count:", artworks.length)}
 
+            <CloudinaryContext cloudName="CLOUD_NAME">
+                {artworks.map(artwork => (
+                    <div key={artwork._id} className="artwork-card">
+                        <Image publicId={artwork.imageUrl}>
+                            <Transformation height="300" crop="scale" />
+                        </Image>
+                        <Typography className="artwork-card-title" variant="h6">{artwork.title}</Typography>
+                        <Typography variant="subtitle1">By: {artwork.artist}</Typography>
+                        <Typography variant="body2">{artwork.description}</Typography>
+                        <Typography variant="body1">Category: {artwork.category}</Typography>
+                        <Typography variant="body1">Price: ${artwork.price}</Typography>
+                        {userRole === 'admin' && (
+                            <div className="artwork-card-actions">
+                                <Button onClick={() => handleEdit(artwork)}>Edit</Button>
+                                <Button onClick={() => handleDelete(artwork._id)}>Delete</Button>
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </CloudinaryContext>
+
+        </div>
 
 
            
