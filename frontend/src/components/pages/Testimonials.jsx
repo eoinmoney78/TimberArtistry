@@ -16,15 +16,43 @@ function Testimonials() {
     },
   ];
 
+  const testimonialStyle = {
+    container: {
+      padding: '20px',
+      textAlign: 'center',
+      backgroundColor: '#F8F2E7', // Light brown background
+      borderRadius: '5px',
+      boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a slight shadow
+    },
+    header: {
+      marginBottom: '20px'
+    },
+    individual: {
+      marginBottom: '20px',
+      padding: '15px',
+      borderRadius: '5px',
+      backgroundColor: '#FFF',
+      border: '1px solid #ddd',
+    },
+    name: {
+      fontSize: '1.2em',
+      marginBottom: '10px',
+    },
+    feedback: {
+      fontStyle: 'italic',
+      color: '#555',
+    }
+  };
+
   return (
-    <div style={{ padding: '20px'}}>
-      <h2>Testimonials</h2>
+    <div style={testimonialStyle.container}>
+      <h2 style={testimonialStyle.header}>Testimonials</h2>
       <p>We're grateful for the feedback from our valued customers:</p>
 
       {testimonialData.map((testimonial, index) => (
-        <div key={index} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }}>
-          <h3>{testimonial.name}</h3>
-          <p>"{testimonial.feedback}"</p>
+        <div key={index} style={testimonialStyle.individual}>
+          <h3 style={testimonialStyle.name}>{testimonial.name}</h3>
+          <p style={testimonialStyle.feedback}>"{testimonial.feedback}"</p>
         </div>
       ))}
     </div>

@@ -15,22 +15,24 @@ function HomePage() {
 }}>
   <div style={{
     display: 'inline-block',  // makes the div wrap snugly around the text
-    boxShadow: '5px 5px 15px rgba(50, 20, 10, 0.9)',
+    boxShadow: '5px 5px 15px rgba(200, 40, 10, 0.9)',
     borderRadius: '5px',
     backgroundColor: 'transparent', // a light gray background for visibility
     transform: "ease in 1s"
   }}>
-    <Typography 
-      variant="h2" 
-      align="center" 
-      style={{ 
-        color: 'black', 
-        padding: '10px'
-      }} 
-      gutterBottom
-    >
-      Wooden Reverie
-    </Typography>
+   <Typography 
+    variant="h2" 
+    align="center" 
+    style={{ 
+      color: 'silver', 
+      textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', // Shadow to the text
+      padding: '10px'
+    }} 
+    gutterBottom
+  >
+    Wooden Reverie
+</Typography>
+
   </div>
 </div>
 

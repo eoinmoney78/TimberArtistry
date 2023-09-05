@@ -12,11 +12,19 @@ import About from './components/pages/About';
 import Testimonials from './components/pages/Testimonials';
 
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
 
 function App() {
   const [sessionToken, setSessionToken] = useState('');
   const location = useLocation();
-
+  const theme = createTheme({
+    palette: {
+      background: {
+        default: '#8B4513'  // Example color
+      }
+    }
+  });
   const updateToken = (newToken) => {
     localStorage.setItem("token", newToken);
     setSessionToken(newToken);
@@ -35,9 +43,9 @@ function App() {
   };
 
   return (
+    <ThemeProvider theme={theme}>
     <div>
       <Header isAuthenticated={!!sessionToken} logout={logout} />
-
       <Routes>
         <Route path="/" element={<HomePage />} />   
         <Route path="/register" element={<Register updateToken={updateToken} />} />
@@ -49,9 +57,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/testimonials" element={<Testimonials />} />
       </Routes>
-
-       {location.pathname !== '/gallery' && <Footer />}
+      {location.pathname !== '/gallery' && <Footer />}
     </div>
+  </ThemeProvider>
   );
 }
 
