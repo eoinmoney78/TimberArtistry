@@ -14,10 +14,10 @@ const artworkSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        imageUrl: {
+        imageUrls: [{  // Updated from imageUrl to imageUrls and made it an array of strings.
             type: String,
             required: false,
-        },
+        }],
         category: {
             type: String,
             enum: ['Painting', 'Sculpture', 'Photography', 'Other', 'Wood piece'],
