@@ -154,7 +154,7 @@ function Gallery() {
         .catch(error => console.error('Error processing artwork:', error));
     };
     
-    
+ 
 
     const handleEdit = (artwork) => {
         setEditArtworkId(artwork._id);
@@ -261,6 +261,7 @@ function Gallery() {
             <MenuItem value="Painting">Painting</MenuItem>
             <MenuItem value="Sculpture">Sculpture</MenuItem>
             <MenuItem value="Photography">Photography</MenuItem>
+            <MenuItem value="Wooden art piece">Wooden Art piece</MenuItem>
             <MenuItem value="Other">Other</MenuItem>
         </Select>
     </FormControl>

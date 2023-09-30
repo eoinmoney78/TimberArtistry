@@ -1,23 +1,31 @@
+
 .homepage-container {
-    position: relative;
-    height: 80vh;
+
+    height: 100%;
+    margin: 0;
+    font-family: 'Cinzel' serif;
+    display: flex;
+    flex-direction: column;  /* Stack children vertically */
+    min-height: 100%;  
+    margin-bottom: 130px;
+ 
     
-    /* ... any other styles for the .homepage-container ... */
 }
 
 .homepage-container::before {
-    content: ""; /* This is essential for the pseudo-element to display */
+    content: ""; 
     background-image: url('../../assets/bark.png'); 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+   
 
-    position: absolute; /* Set to absolute positioning */
+    position: absolute; 
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0; /* Stretch across the entire .homepage-container */
+    bottom: 0; 
 
-    z-index: -1; /* Ensure it's behind the container's content */
+    z-index: -1; 
     opacity: 0.85;
 }

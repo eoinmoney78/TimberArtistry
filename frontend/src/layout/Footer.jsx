@@ -21,8 +21,8 @@ function Footer() {
           
           <Grid item xs={12} sm={4}>
             <Typography variant="subtitle1">Contact</Typography>
-            <p style={{ fontSize: '0.9rem', margin: '4px 0' }}>Email: Maynes@business.com</p>
-            <p style={{ fontSize: '0.9rem', margin: '4px 0' }}>Phone: (123) 456-7890</p>
+            <p style={{ fontSize: '0.9rem', margin: '4px 0' }}>Email: woodenreverie@yahoo.com</p>
+            <p style={{ fontSize: '0.9rem', margin: '4px 0' }}>Phone: (802) 417-1230</p>
           </Grid>
           
           <Grid item xs={12} sm={4}>
@@ -33,7 +33,7 @@ function Footer() {
             <IconButton color="inherit" component="a" href="https://instagram.com" aria-label="Instagram">
               <BsInstagram />
             </IconButton>
-            <IconButton color="inherit" component="a" href="https://twitter.com" aria-label="Twitter">
+            <IconButton color="inherit" component="a" href="https://x.com" aria-label="Twitter">
               <BsTwitter />
             </IconButton>
           </Grid>

@@ -22,7 +22,7 @@ function ServicesPage() {
         <Card elevation={4} sx={{ "&:hover": { transform: "scale(1.05)", transition: "0.3s" ,    backgroundColor: '#CD853F' } }}>
             <Link to="/somepath" style={{ textDecoration: 'none' }}>
               <CardActionArea>
-                <CardMedia component={BiCabinet} height="200" />
+              <CardMedia component={() => <BiCabinet size="5em" />} height="500" />
                 <CardContent sx={{ padding: '24px' }}>
                   <Typography variant="h4" align="center" gutterBottom>
                     Cabinet Re-facing
@@ -48,12 +48,14 @@ function ServicesPage() {
         <Card elevation={4} sx={{ "&:hover": { transform: "scale(1.05)", transition: "0.3s" ,    backgroundColor: '#CD853F' } }}>
             <Link to="/gallery" style={{ textDecoration: 'none' }}>
               <CardActionArea>
-                <CardMedia component={GiPaintBrush} height="200" />
+              <CardMedia component={() => <GiPaintBrush size="5em" />} height="200" />
+
                 <CardContent sx={{ padding: '24px' }}>
                   <Typography variant="h4" align="center" gutterBottom>
                     Wooden Art Pieces
                   </Typography>
                   <Typography align="center" paragraph style={{ fontSize: '18px' }}>
+                    
                     Discover unique art pieces, handcrafted from wood, perfect for any space.
                   </Typography>
                 </CardContent>
@@ -74,7 +76,8 @@ function ServicesPage() {
         <Card elevation={4} sx={{ "&:hover": { transform: "scale(1.05)", transition: "0.3s",     backgroundColor: '#CD853F'  } }}>
             <Link to="/woodworks" style={{ textDecoration: 'none' }}>
               <CardActionArea>
-                <CardMedia component={GiDeadWood} height="200" />
+              <CardMedia component={() => <GiDeadWood size="5em" />} height="200" />
+
                 <CardContent sx={{ padding: '24px' }}>
                   <Typography variant="h4" align="center" gutterBottom>
                     Custom Woodwork

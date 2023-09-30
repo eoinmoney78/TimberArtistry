@@ -17,7 +17,9 @@ function Header({ isAuthenticated, logout }) {
     <>
       <Button color="inherit" component={StyledRouterLink} to="/">Home</Button>
       <Button color="inherit" component={StyledRouterLink} to="/services">Services</Button>
-      <Button color="inherit" component={StyledRouterLink} to="/gallery">Gallery</Button>
+      <Button color="inherit" component={StyledRouterLink} to="/cabinet-gallery">Cabinet Gallery</Button>
+
+      <Button color="inherit" component={StyledRouterLink} to="/gallery">Art Gallery</Button>
       <Button color="inherit" component={StyledRouterLink} to="/contact">Contact</Button>
       {isAuthenticated ? (
         <Button color="inherit" onClick={logout}>Sign Out</Button>
@@ -33,7 +35,7 @@ function Header({ isAuthenticated, logout }) {
   return (
     <>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ backgroundColor: '#cd7f32' }}>
+      <AppBar position="fixed" sx={{ backgroundColor: '#835220' }}>
         <Toolbar>
           <Hidden mdUp>
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => setDrawerOpen(true)}>
@@ -56,6 +58,10 @@ function Header({ isAuthenticated, logout }) {
             <ListItem button component={StyledRouterLink} to="/services" onClick={() => setDrawerOpen(false)}>
               <ListItemText primary="Services" />
             </ListItem>
+            <ListItem button component={StyledRouterLink} to="/cabinet-gallery" onClick={() => setDrawerOpen(false)}>
+            <ListItemText primary="Cabinet Gallery" />
+            </ListItem>
+
             <ListItem button component={StyledRouterLink} to="/gallery" onClick={() => setDrawerOpen(false)}>
               <ListItemText primary="Gallery" />
             </ListItem>

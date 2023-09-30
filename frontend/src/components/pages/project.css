@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+.projects-container {
+    padding: 10px;
+    background-color: #8e8484;
+    font-family: 'Roboto', sans-serif;
+    color:black;
+}
+
+.projects-title {
+    text-align: center;
+    color: #010305;
+    margin-bottom: 40px;
+    font-size: 28px;
+    border-bottom: 2px solid #e74c3c;
+    padding-bottom: 15px;
+}
+
+.refacing-explanation {
+    background-color: #ffffff;
+    padding: 30px;
+    margin-bottom: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.refacing-title,
+.advantages-title {
+    color: #34495e;
+    margin-top: 0;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.refacing-description,
+.conclusion-text {
+    color: #7f8c8d;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.advantages-list {
+    list-style-type: disc;
+    margin-left: 30px;
+}
+
+.advantage-item {
+    color: #7f8c8d;
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+
+.project-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.project-item {
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.project-title {
+    color: #34495e;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.project-description {
+    color: #7f8c8d;
+    font-weight: 300;
+}
+
+.cta-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cta-title {
+    margin: 0;
+    color: #444;
+}
+
+.cta-description {
+    color: #666;
+    margin: 10px 0;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #e74c3c; /* red color */
+    color: #fff; /* white text color */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none; 
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s; /* smooth hover transition */
+}
+
+.cta-button:hover {
+    background-color: #c0392b; /* slightly darker red for hover */
+    transform: translateY(-2px); /* subtle lift on hover */
+}
+
+.cta-button:active {
+    transform: translateY(0); /* reset lift on click */
+}
