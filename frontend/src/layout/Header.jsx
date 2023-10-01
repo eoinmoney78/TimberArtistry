@@ -17,7 +17,7 @@ function Header({ isAuthenticated, logout }) {
     <>
       <Button color="inherit" component={StyledRouterLink} to="/">Home</Button>
       <Button color="inherit" component={StyledRouterLink} to="/services">Services</Button>
-      <Button color="inherit" component={StyledRouterLink} to="/cabinet-gallery">Cabinet Gallery</Button>
+      <Button color="inherit" component={StyledRouterLink} to="/portfolio">Portfolio</Button>
 
       <Button color="inherit" component={StyledRouterLink} to="/gallery">Art Gallery</Button>
       <Button color="inherit" component={StyledRouterLink} to="/contact">Contact</Button>
@@ -58,8 +58,8 @@ function Header({ isAuthenticated, logout }) {
             <ListItem button component={StyledRouterLink} to="/services" onClick={() => setDrawerOpen(false)}>
               <ListItemText primary="Services" />
             </ListItem>
-            <ListItem button component={StyledRouterLink} to="/cabinet-gallery" onClick={() => setDrawerOpen(false)}>
-            <ListItemText primary="Cabinet Gallery" />
+            <ListItem button component={StyledRouterLink} to="/portfolio" onClick={() => setDrawerOpen(false)}>
+            <ListItemText primary="Portfolio" />
             </ListItem>
 
             <ListItem button component={StyledRouterLink} to="/gallery" onClick={() => setDrawerOpen(false)}>

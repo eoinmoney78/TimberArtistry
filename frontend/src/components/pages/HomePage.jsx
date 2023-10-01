@@ -46,12 +46,7 @@ function HomePage() {
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
           <Card elevation={3} style={{ backgroundColor: 'rgba(205, 133, 63, 0.46)' }}>
-            {/* <CardMedia
-              component="img"
-              height="200"
-              image="/path-to-your-cabinet-image.jpg"
-              alt="Cabinet re-facing"
-            /> */}
+           
             <CardContent>
               <Typography variant="h5" align="center" style={{ color: 'white' }} gutterBottom>
                 Cabinet Re-facing

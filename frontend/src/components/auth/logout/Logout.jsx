@@ -1,53 +1,34 @@
-// import React from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import './logout.css';
-// function Logout({ onLogout, onAdminUpdate }) {
-//   const navigate = useNavigate();
-
-//   const logout = () => {
-//     localStorage.removeItem('token');
-//     if (typeof onLogout === 'function') {
-//       onLogout('');
-//     }
-//     if (typeof onAdminUpdate === 'function') {
-//       onAdminUpdate(false);  // Set the admin status to false when the user logs out
-//       console.log('Admin status:', false);  // Log the admin status
-//     }
-//     console.log('logout');
-//     navigate('/');
-//   };
-
-//   return (
-//     <button className="logout-button" onClick={logout}>
-//       Logout
-//     </button>
-//   );
-// };
-
-// export default Logout;
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './logout.css';
 
-function Logout({ onLogout, onAdminUpdate, isAdmin }) {  // Added an isAdmin prop
+function Logout({ onLogout, onAdminUpdate, isAdmin }) {
   const navigate = useNavigate();
 
   const logout = () => {
+    console.log('Starting logout process...');
+
+    console.log('Removing token from local storage...');
     localStorage.removeItem('token');
     
     if (typeof onLogout === 'function') {
+      console.log('Executing onLogout callback...');
       onLogout('');
     }
 
-    if (isAdmin) {  // Check if the user is an admin
-      window.alert('Admin has been logged out.');  // Display the alert for admin
+    if (isAdmin) {
+      console.log('Logged in user is an admin...');
+      window.alert('Admin has been logged out.');
+    } else {
+      console.log('Logged in user is NOT an admin.');
     }
 
     if (typeof onAdminUpdate === 'function') {
-      onAdminUpdate(false);  // Set the admin status to false when the user logs out
-      console.log('Admin status:', false);  // Log the admin status
+      console.log('Executing onAdminUpdate callback to set admin status to false...');
+      onAdminUpdate(false);
+      console.log('Admin status:', false);
     }
-    console.log('logout');
+    console.log('Finished logout process. Navigating to root...');
     navigate('/');
   };
 

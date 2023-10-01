@@ -22,16 +22,20 @@ function Auth(props) {
     setIsLoggedIn(true);
     setIsAdmin(admin);
     props.updateToken(token);
-    localStorage.setItem('isAdmin', JSON.stringify(admin));
+    console.log('Setting isAdmin to false in local storage');
+    localStorage.setItem('isAdmin', JSON.stringify(false));
 };
 
 
-  const handleLogout = () => {
-    console.log('Logging out user...');
-    setIsLoggedIn(false);
-    setIsAdmin(false);
-    props.updateToken('');
-  };
+const handleLogout = () => {
+  console.log('Logging out user...');
+  setIsLoggedIn(false);
+  setIsAdmin(false);
+  props.updateToken('');
+  localStorage.setItem('isAdmin', JSON.stringify(false));
+
+};
+
 
   if (isLoggedIn) {
     return (

@@ -5,6 +5,7 @@ import Header from './layout/Header';
 import Footer from './layout/Footer';  
 import HomePage from './components/pages/HomePage';  
 import ServicesPage from './components/pages/ServicesPage';  
+import Portfolio from './components/pages/Portfolio'
 import Gallery from './components/pages/Gallery';
 import Projects from './components/pages/Projects';  // <-- import the Projects component
 import Contact from './components/pages/Contact';  // <-- import the Contact component
@@ -51,6 +52,7 @@ function App() {
         <Route path="/register" element={<Register updateToken={updateToken} />} />
         <Route path="/login" element={<Login updateToken={updateToken} />} />
         <Route path="/services" element={<ServicesPage />} />
+        <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/projects" element={<Projects />} /> 
         <Route path="/contact" element={<Contact />} />  

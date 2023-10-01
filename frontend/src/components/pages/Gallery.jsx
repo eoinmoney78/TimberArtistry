@@ -14,6 +14,7 @@ import {
     Typography
 } from '@mui/material';
 
+
 function Gallery() {
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [editArtworkId, setEditArtworkId] = useState(null);
@@ -35,11 +36,12 @@ function Gallery() {
         const data = await response.json();
         setNewArtwork(prevState => ({
             ...prevState,
-            imageUrl: data.secure_url,
+            imageUrls: [...prevState.imageUrls, data.secure_url],
         }));
     };
     const [userRole, setUserRole] = useState(localStorage.getItem('isAdmin') === 'true' ? 'admin' : 'user');
-
+   
+    const isAdmin = userRole === 'admin';
     useEffect(() => {
       
         // This will set the initial value of userRole based on what's in localStorage when the component first mounts.
@@ -60,16 +62,16 @@ function Gallery() {
         title: '',
         artist: '',
         description: '',
-        imageUrl: '',
+        imageUrls: [],
         category: '',
         price: '',
     });
 
     useEffect(() => {
-        console.log("Component Mounted.");
-        console.log("Initial Artworks:", artworks);
-        console.log("Is Admin?", userRole === 'admin');
-        console.log("Fetching artworks from:", `${baseURL}/artwork`);
+        // console.log("Component Mounted.");
+        // console.log("Initial Artworks:", artworks);
+        // console.log("Is Admin?", userRole === 'admin');
+        // console.log("Fetching artworks from:", `${baseURL}/artwork`);
         fetch(`${baseURL}/artwork`)
             .then(response => {
                 if (!response.ok) {
@@ -78,7 +80,7 @@ function Gallery() {
                 return response.json();
             })
             .then(data => {
-                console.log("Fetched artworks:", data);
+            
                 setArtworks(data);
             })
             .catch(error => console.error('Error fetching artworks:', error));
@@ -100,7 +102,7 @@ function Gallery() {
         e.preventDefault();
         const token = localStorage.getItem("token");
         if (!token) {
-            console.error('No token found in localStorage. Redirecting to login...');
+         
             return;
         }
         
@@ -113,9 +115,7 @@ function Gallery() {
         }
     
         // Log the values of newArtwork and method
-        console.log("Submitting with artwork data:", newArtwork);
-        console.log("Using HTTP method:", method);
-    
+   
         fetch(url, {
             method: method,
             headers: {
@@ -138,14 +138,15 @@ function Gallery() {
                 setArtworks(prevArtworks => [...prevArtworks, data]);
             }
                  // Clearing the form fields
-        setNewArtwork({
-            title: '',
-            artist: '',
-            description: '',
-            imageUrl: '',
-            category: '',
-            price: '',
-        });
+                 setNewArtwork({
+                    title: '',
+                    artist: '',
+                    description: '',
+                    imageUrls: [],  // Updated from imageUrl to imageUrls and made it an array.
+                    category: '',
+                    price: '',
+                });
+                
 
         // Optionally hide the form after editing
         setIsFormVisible(false);
@@ -163,10 +164,10 @@ function Gallery() {
     };
     
     const handleDelete = (_id) => {
-        console.log("Deleting artwork with ID:", _id);
+       
         const token = localStorage.getItem("token");
         if (!token) {
-            console.error('No token found in localStorage. Redirecting to login...');
+       
             return;
         }
         
@@ -183,19 +184,27 @@ function Gallery() {
             setArtworks(artworks.filter(artwork => artwork._id !== _id));
         })
         .then(() => {
-            console.log("Deleted artwork with ID:", _id);
+   
         })
         .catch(error => console.error('Error deleting artwork:', error));
     };
     
     
-    
+    const handleImageUrlChange = (e, index) => {
+        const updatedUrls = [...newArtwork.imageUrls];
+        updatedUrls[index] = e.target.value;
+        setNewArtwork(prevState => ({
+            ...prevState,
+            imageUrls: updatedUrls,
+        }));
+    };
+
     return (
         <Container className="gallery-container">
-             {console.log("Rendering Gallery")}
+     
             <Typography variant="h4" gutterBottom>Gallery</Typography>
 
-            {userRole === 'admin' && (
+            {isAdmin  && (
                 <>
                     <Button onClick={() => setIsFormVisible(true)}>
                         Add New Artwork
@@ -240,15 +249,19 @@ function Gallery() {
         sx={{ fontSize: '1.1rem', padding: '8px 0' }}
     />
 
+{newArtwork.imageUrls.map((url, index) => (
     <TextField
+        key={index}
         fullWidth
         margin="normal"
-        name="imageUrl"
-        label="Image URL"
-        value={newArtwork.imageUrl}
-        onChange={handleInputChange}
+        name={`imageUrl_${index}`}
+        label={`Image URL ${index + 1}`}
+        value={url}
+        onChange={e => handleImageUrlChange(e, index)}
         sx={{ fontSize: '1.1rem', padding: '8px 0' }}
-    />
+        />
+        ))}
+     
 
     <FormControl fullWidth margin="normal" sx={{ padding: '8px 0' }}>
         <InputLabel sx={{ fontSize: '1.1rem' }}>Category</InputLabel>
@@ -289,28 +302,31 @@ function Gallery() {
                 </>
             )}
       <div className="artworks-display">
-            {console.log("Rendering artworks. Count:", artworks.length)}
+      
 
-            <CloudinaryContext cloudName="CLOUD_NAME">
-                {artworks.map(artwork => (
-                    <div key={artwork._id} className="artwork-card">
-                        <Image publicId={artwork.imageUrl}>
-                            <Transformation height="300" crop="scale" />
-                        </Image>
-                        <Typography className="artwork-card-title" variant="h6">{artwork.title}</Typography>
-                        <Typography variant="subtitle1">By: {artwork.artist}</Typography>
-                        <Typography variant="body2">{artwork.description}</Typography>
-                        <Typography variant="body1">Category: {artwork.category}</Typography>
-                        <Typography variant="body1">Price: ${artwork.price}</Typography>
-                        {userRole === 'admin' && (
-                            <div className="artwork-card-actions">
-                                <Button onClick={() => handleEdit(artwork)}>Edit</Button>
-                                <Button onClick={() => handleDelete(artwork._id)}>Delete</Button>
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </CloudinaryContext>
+            <CloudinaryContext cloudName="dns9ltiu8">
+    {artworks.map(artwork => (
+        <div key={artwork._id} className="artwork-card">
+            {artwork.imageUrls && artwork.imageUrls.map((imageUrl, idx) => (
+                <Image key={idx} publicId={imageUrl}>
+                    <Transformation height="300" crop="scale" />
+                </Image>
+            ))}
+            <Typography className="artwork-card-title" variant="h6">{artwork.title}</Typography>
+            <Typography variant="subtitle1">By: {artwork.artist}</Typography>
+            <Typography variant="body2">{artwork.description}</Typography>
+            <Typography variant="body1">Category: {artwork.category}</Typography>
+            <Typography variant="body1">Price: ${artwork.price}</Typography>
+            {userRole === 'admin' && (
+                <div className="artwork-card-actions">
+                    <Button onClick={() => handleEdit(artwork)}>Edit</Button>
+                    <Button onClick={() => handleDelete(artwork._id)}>Delete</Button>
+                </div>
+            )}
+        </div>
+    ))}
+</CloudinaryContext>
+
 
         </div>
 

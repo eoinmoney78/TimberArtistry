@@ -45,7 +45,7 @@
 }
 
 .advantage-item {
-    color: #7f8c8d;
+    color: #232929;
     margin-bottom: 15px;
     font-weight: 300;
 }
@@ -99,7 +99,7 @@
 .cta-button {
     display: inline-block;
     background-color: #e74c3c; /* red color */
-    color: #fff; /* white text color */
+    color: #644c4c; /* white text color */
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none; 
