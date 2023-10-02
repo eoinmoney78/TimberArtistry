@@ -22,13 +22,16 @@ function Header({ isAuthenticated, logout }) {
       <Button color="inherit" component={StyledRouterLink} to="/gallery">Art Gallery</Button>
       <Button color="inherit" component={StyledRouterLink} to="/contact">Contact</Button>
       {isAuthenticated ? (
+    <>
         <Button color="inherit" onClick={logout}>Sign Out</Button>
-      ) : (
-        <>
-          <Button color="inherit" component={StyledRouterLink} to="/login">Sign In</Button>
-          <Button color="inherit" component={StyledRouterLink} to="/register">Register</Button>
-        </>
-      )}
+        <Button color="inherit" component={StyledRouterLink} to="/register">Register</Button>
+    </>
+) : (
+    <>
+        <Button color="inherit" component={StyledRouterLink} to="/login">Sign In</Button>
+    </>
+)}
+
     </>
   );
 
@@ -69,19 +72,22 @@ function Header({ isAuthenticated, logout }) {
               <ListItemText primary="Contact" />
             </ListItem>
             {isAuthenticated ? (
-              <ListItem button onClick={logout}>
-                <ListItemText primary="Sign Out" />
-              </ListItem>
-            ) : (
-              <>
-                <ListItem button component={StyledRouterLink} to="/login" onClick={() => setDrawerOpen(false)}>
-                  <ListItemText primary="Sign In" />
-                </ListItem>
-                <ListItem button component={StyledRouterLink} to="/register" onClick={() => setDrawerOpen(false)}>
-                  <ListItemText primary="Register" />
-                </ListItem>
-              </>
-            )}
+    <>
+        <ListItem button onClick={logout}>
+            <ListItemText primary="Sign Out" />
+        </ListItem>
+        <ListItem button component={StyledRouterLink} to="/register" onClick={() => setDrawerOpen(false)}>
+            <ListItemText primary="Register" />
+        </ListItem>
+    </>
+) : (
+    <>
+        <ListItem button component={StyledRouterLink} to="/login" onClick={() => setDrawerOpen(false)}>
+            <ListItemText primary="Sign In" />
+        </ListItem>
+    </>
+)}
+
           </List>
         </Drawer>
       </AppBar>

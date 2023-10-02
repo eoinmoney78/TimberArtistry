@@ -1,11 +1,8 @@
-.services-page {
-    position: relative;
-}
 
 .services-page::before {
     content: ""; 
     background-image: url('../../assets/textured_background.png'); 
-    background-size: cover;
+    background-size:contain;
     background-repeat: no-repeat;
     background-position: center center;
 
@@ -16,5 +13,10 @@
     bottom: 0;
 
     z-index: -1; 
-    opacity: 1; /* Corrected this to a valid value between 0 and 1 */
+    opacity: 1; 
 }
+.card-content {
+    height: auto; /* ensure content determines the height */
+     /* reduce padding if needed */
+}
+
