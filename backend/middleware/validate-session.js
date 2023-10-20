@@ -1,3 +1,5 @@
+
+
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -9,35 +11,31 @@ const validateSession = async (req, res, next) => {
         const token = req.headers.authorization;
 
         if (!token || !token.startsWith(BEARER_PREFIX)) {
-            throw { status: 401, message: "Invalid token format or no token provided." };
+            return res.status(401).send({ auth: false, message: "Invalid token format or no token provided." });
         }
 
         const tokenWithoutBearer = token.slice(BEARER_PREFIX.length);
-        let decoded;
-
-        try {
-            decoded = jwt.verify(tokenWithoutBearer, JWT_SECRET);
-        } catch (err) {
-            console.error("Error during JWT verification:", err);
-            let message = "Failed to authenticate token.";
-            if (err.name === 'TokenExpiredError') {
-                message = "Token expired.";
-            }
-            throw { status: 401, message };
-        }
+        const decoded = jwt.verify(tokenWithoutBearer, JWT_SECRET);
 
         const user = await User.findById(decoded.id);
         if (!user) {
-            throw { status: 401, message: "User not found." };
+            return res.status(401).send({ auth: false, message: "User not found." });
         }
 
-        // Attach user to the request object
         req.user = user;
         return next();
     } catch (err) {
-        console.error(err.message || err);
-        const status = err.status || 500;
-        const message = err.message || "Internal server error.";
+        let status = 500;
+        let message = "Internal server error.";
+
+        if (err.name === 'TokenExpiredError') {
+            message = "Token expired.";
+            status = 401;
+        } else if (err.status && err.message) {
+            message = err.message;
+            status = err.status;
+        }
+
         return res.status(status).send({ auth: false, message });
     }
 };

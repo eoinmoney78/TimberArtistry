@@ -16,14 +16,11 @@ const connectToDatabase = async () => {
         };
 
         await mongoose.connect(MONGO_URI, options);
-
         console.log('Database Connected Successfully');
-
-        // Add listeners to handle events
         handleMongooseEvents();
 
     } catch (error) {
-        console.error('Error connecting to the database:', error);
+        console.error('Error connecting to the database. Check your configurations and ensure MongoDB is running.');
         throw error;
     }
 };
@@ -33,25 +30,30 @@ const connectToDatabase = async () => {
  */
 const handleMongooseEvents = () => {
     mongoose.connection.on('connected', () => {
-        console.log('Mongoose connected to the database.');
+        console.log('Mongoose connected.');
     });
 
     mongoose.connection.on('disconnected', () => {
-        console.log('Mongoose disconnected from the database.');
+        console.log('Mongoose disconnected.');
     });
 
-    mongoose.connection.on('error', (error) => {
-        console.error('There was an error with the mongoose connection:', error);
+    mongoose.connection.on('error', () => {
+        console.error('There was an error with the mongoose connection. Check logs for details.');
     });
 
     // Ensure mongoose connection closes when the application stops
-    process.on('SIGINT', () => {
-        mongoose.connection.close();
-        console.log('Mongoose connection closed due to application termination.');
-        process.exit(0);
-    });
-
+    process.on('SIGINT', gracefullyExit);
+    process.on('SIGTERM', gracefullyExit);
 };
 
-// Expose the connectToDatabase function and the mongoose object
+/**
+ * Gracefully exits the application, ensuring DB connections are closed.
+ */
+const gracefullyExit = () => {
+    mongoose.connection.close(() => {
+        console.log('Mongoose connection closed. Exiting application.');
+        process.exit(0);
+    });
+};
+
 module.exports = { connectToDatabase, mongoose };

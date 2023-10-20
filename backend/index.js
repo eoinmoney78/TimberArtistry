@@ -1,77 +1,161 @@
-require('dotenv').config();
+// require('dotenv').config();
+// const crypto = require('crypto');
+
+// const express = require('express');
+// const app = express();
+// const cors = require('cors');
+
+// const cloudinary = require('./cloudinaryConfig');
+
+// const multer = require('multer');
+
+// const upload = multer({ dest: 'uploads/' });
+// const PORT = process.env.PORT || 5001;
+// const { connectToDatabase } = require('./middleware/db'); // Correct the path to middleware
+
+// // const mongoose = require("mongoose");
+
+// const authRoute = require("./routes/auth");
+// const userRoute = require("./routes/users");
+// const artworkRoute = require("./routes/artwork");
+
+// const projectRoute = require("./routes/project");
+
+
+
+// app.use(express.json());
+// app.use(cors());
+// app.use('/static', express.static('public'));
+
+// app.use("/auth", authRoute);
+// app.use("/users", userRoute);
+// app.use("/artwork", artworkRoute);
+
+// app.use("/project", projectRoute);
+
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).send('Something broke!');
+// });
+
+
+// app.post('/image/upload', upload.single('image'), (req, res) => {
+//     // req.file is the 'image' file
+//     // req.body will hold the text fields, if there were any
+
+//     console.log('Request body:', req.body);
+//     console.log('Request file:', req.file);
+
+//     // Upload the image to Cloudinary
+//     cloudinary.uploader.upload(req.file.buffer, (error, result) => {
+//         if (error) {
+//             console.error('Upload error:', error);
+//             res.status(500).json({ message: 'Error uploading image to Cloudinary.' });
+//         } else {
+//             console.log('Upload result:', result);
+//             // You can save the Cloudinary URL (result.secure_url) to your database
+//             // or use it in any way you need in your application
+//             res.status(200).json({ message: 'Image uploaded successfully.' });
+//         }
+//     });
+// });
+
+// // Connection
+// const server = async () => {
+//     // Check for JWT_SECRET
+//     if (!process.env.JWT_SECRET) {
+//         const generatedSecret = crypto.randomBytes(32).toString('hex');
+//         console.log('Crypto is working. Generated secret:', generatedSecret);
+//         console.warn(`JWT_SECRET is not set! For development, you can use the following secret: ${generatedSecret}. Please set this as an environment variable.`);
+//     }
+
+//     console.log('Connecting to the database...');
+//     await connectToDatabase(); // Use the correct function name
+//     console.log('Database connection established.');
+//     app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
+// };
+
+// server();
+
+
+
+
+// Environment setup
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const crypto = require('crypto');
-
 const express = require('express');
-const app = express();
 const cors = require('cors');
-
-const cloudinary = require('./cloudinaryConfig');
-
 const multer = require('multer');
+const cloudinary = require('./cloudinaryConfig');
+const rateLimit = require('express-rate-limit');
 
-const upload = multer({ dest: 'uploads/' });
-const PORT = process.env.PORT || 5001;
-const { connectToDatabase } = require('./middleware/db'); // Correct the path to middleware
-
-// const mongoose = require("mongoose");
-
+// Routes
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const artworkRoute = require("./routes/artwork");
-
 const projectRoute = require("./routes/project");
 
+const { connectToDatabase } = require('./middleware/db');
+const app = express();
+const PORT = process.env.PORT || 5001;
 
+// Trust proxy for rate-limiting if behind a reverse proxy (like Heroku, nginx)
+app.set('trust proxy', 1);
 
+// Set up rate limiting
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,  // 15 minutes
+    max: 100,  // Maximum 100 requests per windowMs
+    message: "Too many requests, please try again later."
+});
+
+// Middlewares
 app.use(express.json());
 app.use(cors());
 app.use('/static', express.static('public'));
+app.use(apiLimiter); // Apply rate limiting
 
+// Routes Middlewares
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/artwork", artworkRoute);
-
 app.use("/project", projectRoute);
 
+// Error Handler
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
+    res.status(500).send('Internal Server Error!');
 });
 
 
-app.post('/image/upload', upload.single('image'), (req, res) => {
-    // req.file is the 'image' file
-    // req.body will hold the text fields, if there were any
-
-    console.log('Request body:', req.body);
-    console.log('Request file:', req.file);
-
-    // Upload the image to Cloudinary
-    cloudinary.uploader.upload(req.file.buffer, (error, result) => {
-        if (error) {
-            console.error('Upload error:', error);
-            res.status(500).json({ message: 'Error uploading image to Cloudinary.' });
-        } else {
-            console.log('Upload result:', result);
-            // You can save the Cloudinary URL (result.secure_url) to your database
-            // or use it in any way you need in your application
-            res.status(200).json({ message: 'Image uploaded successfully.' });
-        }
+app.get('/config', (req, res) => {
+    res.json({
+        cloudName: process.env.CLOUD_NAME
     });
 });
 
-// Connection
+
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/image/upload', upload.single('image'), async (req, res) => {
+    try {
+        const result = await cloudinary.uploader.upload(req.file.buffer);
+        res.status(200).json({ message: 'Image uploaded successfully.', url: result.secure_url });
+    } catch (error) {
+        res.status(500).json({ message: 'Error uploading image.' });
+    }
+});
+
+// Initialize server
 const server = async () => {
-    // Check for JWT_SECRET
     if (!process.env.JWT_SECRET) {
         const generatedSecret = crypto.randomBytes(32).toString('hex');
-        console.log('Crypto is working. Generated secret:', generatedSecret);
-        console.warn(`JWT_SECRET is not set! For development, you can use the following secret: ${generatedSecret}. Please set this as an environment variable.`);
+        console.warn(`JWT_SECRET is not set! For development, consider using: ${generatedSecret}. Set this as an environment variable in production.`);
     }
 
-    console.log('Connecting to the database...');
-    await connectToDatabase(); // Use the correct function name
-    console.log('Database connection established.');
+    await connectToDatabase();
     app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
 };
 
