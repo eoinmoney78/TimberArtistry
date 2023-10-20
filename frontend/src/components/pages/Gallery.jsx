@@ -20,6 +20,22 @@ function Gallery() {
     const [editArtworkId, setEditArtworkId] = useState(null);
     const [imageFile, setImageFile] = useState(null); 
 
+    const [cloudName, setCloudName] = useState('');
+
+    useEffect(() => {
+        async function fetchConfig() {
+            try {
+                const response = await fetch(`${baseURL}/config`);
+                const data = await response.json();
+                setCloudName(data.cloudName);
+            } catch (error) {
+                console.error('Error fetching cloud name:', error);
+            }
+        }
+        
+        fetchConfig();
+    }, []);
+    
     const handleImageChange = (e) => {
         setImageFile(e.target.files[0]);
     };
@@ -28,7 +44,7 @@ function Gallery() {
         formData.append('file', imageFile);
         formData.append('upload_preset', 'ml_default');
 
-        const response = await fetch('https://api.cloudinary.com/v1_1/dns9ltiu8/image/upload', {
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
             method: 'POST',
             body: formData,
           });
@@ -68,10 +84,7 @@ function Gallery() {
     });
 
     useEffect(() => {
-        // console.log("Component Mounted.");
-        // console.log("Initial Artworks:", artworks);
-        // console.log("Is Admin?", userRole === 'admin');
-        // console.log("Fetching artworks from:", `${baseURL}/artwork`);
+       
         fetch(`${baseURL}/artwork`)
             .then(response => {
                 if (!response.ok) {
@@ -218,7 +231,13 @@ function Gallery() {
 
                             <form onSubmit={handleSubmit}>
                                                       <input type="file" onChange={handleImageChange} />
-                            <Button onClick={handleImageUpload}>Upload Image</Button>
+                                                      <Button 
+    onClick={handleImageUpload} 
+    disabled={!cloudName} 
+>
+    Upload Image
+</Button>
+
     <TextField
         fullWidth
         margin="normal"
@@ -304,7 +323,7 @@ function Gallery() {
       <div className="artworks-display">
       
 
-            <CloudinaryContext cloudName="dns9ltiu8">
+            <CloudinaryContext cloudName={cloudName}>
     {artworks.map(artwork => (
         <div key={artwork._id} className="artwork-card">
             {artwork.imageUrls && artwork.imageUrls.map((imageUrl, idx) => (

@@ -39,41 +39,16 @@ function HomePage() {
 </div>
 
         <Typography variant="h6" align="center"  style={{ color: 'white', fontFamily: 'Cinzel, serif',}} paragraph>
-          Transforming ordinary into extraordinary with cabinet re-facing and unique wooden art.
+          Transforming ordinary into extraordinary with  unique wooden art.
         </Typography>
       </Box>
 
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Card elevation={3} style={{ backgroundColor: 'rgba(205, 133, 63, 0.46)' }}>
-           
-            <CardContent>
-              <Typography variant="h5" align="center" style={{ color: 'white' }} gutterBottom>
-                Cabinet Re-facing
-              </Typography>
-              <Typography align="center" style={{ color: 'white' }}>
-                Give your cabinets a fresh, modern look without the hassle of a full remodel. 
-              </Typography>
-              <Box mt={2} display="flex" justifyContent="center">
-                
-              <Link to="/projects" style={{ textDecoration: 'none' }}> 
-            <Button variant="contained" color="primary" fullWidth>
-              Learn More
-            </Button>
-          </Link>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
+      <Grid container spacing={4} justifyContent={"center"}>
+      
         
         <Grid item xs={12} md={6}>
           <Card elevation={3} style={{ backgroundColor: 'rgba(205, 133, 63, 0.46)' }}>
-            {/* <CardMedia
-              component="img"
-              height="200"
-              image="/path-to-your-wood-art-image.jpg"
-              alt="Wooden art"
-            /> */}
+         
             <CardContent>
               <Typography variant="h5" align="center" style={{ color: 'white' }} gutterBottom>
                 Wooden Art Pieces
