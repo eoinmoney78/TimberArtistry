@@ -30,6 +30,7 @@ h5 {
 .testimonial, .testimonials_container {
     max-width: 100%;
     box-sizing: border-box;  /* This ensures padding and border are included in the width */
+    margin-bottom: 20px;
 }
 
 
