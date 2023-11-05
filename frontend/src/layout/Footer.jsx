@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import { Container, Grid, Typography, IconButton } from '@mui/material';
-import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs';
+import { BsFacebook, BsInstagram} from 'react-icons/bs';
 
 function Footer() {
   return (
