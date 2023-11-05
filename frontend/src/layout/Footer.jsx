@@ -82,15 +82,8 @@ function Footer() {
             >
               <BsInstagram />
             </IconButton>
-            <IconButton
-              color="white"
-              componeritnt="a"
-              href="https://x.com"
-              aria-label="Twitter"
-              sx={{ '&:hover': { backgroundColor: 'grey.700' } }}
-            >
-              <BsTwitter />
-            </IconButton>
+            
+         
           </Grid>
         </Grid>
       </Container>

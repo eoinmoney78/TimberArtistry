@@ -3,7 +3,7 @@ import logo from '../../assets/carpenter.png';
 
 function About() {
   return (
-    <div style={{ padding: '10px', minHeight: '70vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
+    <div style={{ padding: '10px', minHeight: '65vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
     <h2 style={{ textAlign: 'center' }}>About Jeremy Woods</h2>
     <img src={logo} alt="Timber Artistry Logo" style={{ height: '130px', margin: '0 auto', border: '2px solid black', flexShrink: 0 }} />
     
