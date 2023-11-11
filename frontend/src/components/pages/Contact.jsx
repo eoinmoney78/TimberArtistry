@@ -12,13 +12,33 @@ const Contact = () => {
 
   const form = useRef();
 
+  // const sendEmail = (e) => {
+  //   e.preventDefault();
+
+  //   emailjs.sendForm('service_b95380b', 'template_ip77w5d', form.current, 'iWCrP9nhR0iqCjX60')
+  //   e.target.reset();
+   
+  // };
+
   const sendEmail = (e) => {
     e.preventDefault();
-
-    emailjs.sendForm('service_b95380b', 'template_ip77w5d', form.current, 'iWCrP9nhR0iqCjX60')
+  
+    emailjs.sendForm(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID, 
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID, 
+      form.current, 
+      process.env.REACT_APP_EMAILJS_USER_ID
+    ).then((result) => {
+      console.log('Email successfully sent', result);
+      // Optionally reset the form here or show a success message
+    }, (error) => {
+      console.log('Email sending error', error);
+      // Optionally show an error message
+    });
+  
     e.target.reset();
-   
   };
+  
 
   return (
     <section id="contact">
@@ -45,7 +65,7 @@ const Contact = () => {
   <h4>Instagram</h4>
   <h5>Your Instagram Handle</h5>
   <a
-    href="https://www.instagram.com/eoinmoney78"
+    href="https://www.instagram.com/woodenreverie/"
     target="_blank"
     rel="noopener noreferrer"
   >

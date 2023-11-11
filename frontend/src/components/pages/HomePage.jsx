@@ -59,7 +59,7 @@ function HomePage() {
               <Box mt={2} display="flex" justifyContent="center">
               <Link to="/gallery" style={{ textDecoration: 'none' }}> 
                 <Button variant="contained" color="primary">
-                  Shop Now
+                Browse Collection
                 </Button>
                 </Link>
               </Box>

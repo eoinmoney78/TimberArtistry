@@ -67,7 +67,7 @@ function Footer() {
           <IconButton
               color="blue"
               component="a"
-              href="https://facebook.com"
+              href="https://facebook.com/jeremy.woods.7771"
               aria-label="Facebook"
               sx={{ '&:hover': { backgroundColor: 'grey.700' } }}
             >
@@ -76,7 +76,7 @@ function Footer() {
             <IconButton
               color="black"
               component="a"
-              href="https://instagram.com"
+              href="https://instagram.com/woodenreverie/"
               aria-label="Instagram"
               sx={{ '&:hover': { backgroundColor: 'grey.700' } }}
             >

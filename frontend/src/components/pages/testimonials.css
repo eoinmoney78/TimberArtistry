@@ -9,14 +9,14 @@ h5 {
     padding-bottom: 1rem;
 }
 
-.client_avatar {
+/* .client_avatar {
     width: 10rem;
     aspect-ratio: 1/1;
     overflow: hidden;
     border-radius: 50%;
     margin: 0 auto 1rem;
     border: 0.4rem solid #000000;
-}
+} */
 
 .testimonial {
     height: 300px; /* You can adjust this based on your needs */
@@ -30,7 +30,7 @@ h5 {
 .testimonial, .testimonials_container {
     max-width: 100%;
     box-sizing: border-box;  /* This ensures padding and border are included in the width */
-    margin-bottom: 20px;
+    margin-bottom: 60px;
 }
 
 

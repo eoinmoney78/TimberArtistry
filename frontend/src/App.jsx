@@ -36,12 +36,12 @@ function App() {
 
   useEffect(() => {
     const storedIsAdmin = localStorage.getItem('isAdmin') === 'true';
-    console.log("Retrieved `isAdmin` from local storage:", storedIsAdmin);
+    // console.log("Retrieved `isAdmin` from local storage:", storedIsAdmin);
     setIsAdmin(storedIsAdmin);
 
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
-       console.log("`sessionToken` retrieved from local storage:", storedToken);
+      //  console.log("`sessionToken` retrieved from local storage:", storedToken);
        setSessionToken(storedToken);
     }
 }, []);
@@ -50,21 +50,21 @@ const logout = () => {
   console.log("Starting logout process...");
 
   localStorage.removeItem("token");
-  console.log("`token` removed from local storage.");
+
 
   localStorage.setItem('isAdmin', false);
   console.log("`isAdmin` set to false in local storage.");
 
   setSessionToken('');
   setIsAdmin(false);  // Set the state to false
-  console.log("`sessionToken` and `isAdmin` states updated in React.");
+  // console.log("`sessionToken` and `isAdmin` states updated in React.");
 };
 
 const handleAdminUpdate = (status) => {
-    console.log("Inside handleAdminUpdate function. New Status:", status);
+    // console.log("Inside handleAdminUpdate function. New Status:", status);
     setIsAdmin(status);
     localStorage.setItem('isAdmin', status);
-    console.log("`isAdmin` set in local storage:", status);
+    // console.log("`isAdmin` set in local storage:", status);
 };
 
   
